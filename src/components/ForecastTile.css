@@ -1,0 +1,9 @@
+.forecast-tile
+{
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 20px;
+    background-color: #303030;
+}

@@ -1,0 +1,93 @@
+.current-tile
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 20px;
+    background-color: #303030;
+}
+
+.left-block 
+{
+    text-align: left;
+}
+
+.right-block
+{
+    text-align: right;
+}
+
+.flex-block
+{
+    margin: 0em;
+    padding: 0em;
+    display: flex;
+}
+
+.location-text
+{
+    margin-left: 0.1em;
+}
+
+.location-text-sub
+{
+    margin-left: 1em;
+    color: dimgray;
+}
+
+.current-date
+{
+    margin-left: 0.5em;
+    font-size: 25px;
+}
+
+.current-time
+{
+    margin: 0em;
+    margin-top: -0.1em;
+    padding: 0em;
+    font-weight: normal;
+    font-size: 120px;
+}
+
+.current-time-second
+{
+    margin: 0em;
+    margin-top: -0.1em;
+    padding: 0em;
+    font-weight: lighter;
+    font-size: 60px;
+    color: dimgray;
+}
+
+.current-temperature
+{
+    font-weight: lighter;
+    font-size: 70px;
+}
+
+.weather-detail
+{
+    color: dimgray;
+}
+
+h1
+{
+    margin: 0em;
+}
+
+h2
+{
+    margin: 0em;
+}
+
+h3
+{
+    margin: 0em;
+}
+
+h4
+{
+    margin: 0em;
+}

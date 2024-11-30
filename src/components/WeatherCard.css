@@ -1,0 +1,41 @@
+.weather-card
+{
+    margin: 0.5em;
+    padding: 1em;
+}
+
+.forecast-time
+{
+    text-align: center;
+    font-weight: bold;
+    color: dimgray;
+}
+
+.forecast-temperature
+{
+    font-weight: normal;
+}
+
+.forecast-temperature-high
+{
+    font-weight: normal;
+    color:peru;
+}
+
+.forecast-temperature-low
+{
+    font-weight: normal;
+    color:steelblue;
+}
+
+.forecast-temperature-divider
+{
+    color: dimgray;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+}
+
+.spacing
+{
+    margin: 1em;
+}
