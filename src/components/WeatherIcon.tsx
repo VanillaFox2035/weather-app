@@ -1,8 +1,14 @@
 import "./WeatherIcon.css";
 
+export enum WeatherType
+{
+    
+}
+
 interface IWeatherIcon
 {
     width?: string;
+    weather?: WeatherType;
 }
 
 export default function WeatherIcon(props: IWeatherIcon)

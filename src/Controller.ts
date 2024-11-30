@@ -1,4 +1,3 @@
-import { controller } from "./App";
 
 export default class Controller
 {

@@ -17,7 +17,7 @@ function App() {
   	return (
     <>
 		<div className="container">
-			<CurrentTile location="新莊" temperature={21} chanceOfRain={40} humidity={70}/>
+			<CurrentTile location="新莊" locationSub="Xinzhuang" temperature={21} chanceOfRain={40} humidity={70}/>
 			<DayTile/>
 			<WeekTile/>
 			<br/>
