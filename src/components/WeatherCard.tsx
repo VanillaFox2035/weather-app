@@ -2,9 +2,14 @@ import "./WeatherCard.css";
 import "./WeatherIcon";
 import WeatherIcon from "./WeatherIcon";
 
-interface IWeatherCard
+enum WeatherType
 {
     
+}
+
+interface IWeatherCard
+{
+    //weather: WeatherType;
 }
 
 export default function WeatherCard(props: IWeatherCard)

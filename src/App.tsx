@@ -1,13 +1,23 @@
+import { useEffect } from "react";
 import "./App.css";
 import CurrentTile from "./components/CurrentTile";
 import DayTile from "./components/DayTile";
 import WeekTile from "./components/WeekTile";
+import Controller from "./Controller";
+
+export const controller: Controller = new Controller();
 
 function App() {
+	
+	//  Initialize controller once
+	useEffect(() => {
+		controller.Initialize();
+	}, [])
+
   	return (
     <>
 		<div className="container">
-			<CurrentTile/>
+			<CurrentTile location="新莊" temperature={21} chanceOfRain={40} humidity={70}/>
 			<DayTile/>
 			<WeekTile/>
 			<br/>
