@@ -9,6 +9,7 @@ interface IWeatherIcon
 {
     width?: string;
     weather?: WeatherType;
+    isDay?: boolean;
 }
 
 export default function WeatherIcon(props: IWeatherIcon)

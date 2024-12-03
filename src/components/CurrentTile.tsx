@@ -9,7 +9,7 @@ interface ICurrentTile
     locationSub?: string;
     
     temperature: number;
-    chanceOfRain: number;
+    precipitation: number;
     humidity: number;
 }
 
@@ -87,7 +87,7 @@ export default function CurrentTile(props: ICurrentTile)
             <div className="right-block">
                 <WeatherIcon width="150px"/> 
                 <h1 className="current-temperature">{props.temperature}°</h1>
-                <h4 className="weather-detail">Chance of rain: {props.chanceOfRain}%</h4>
+                <h4 className="weather-detail">Precipitation: {props.precipitation}%</h4>
                 <h4 className="weather-detail">Humidity: {props.humidity}%</h4>
             </div>
         </div>
