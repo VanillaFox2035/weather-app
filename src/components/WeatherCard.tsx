@@ -6,7 +6,7 @@ import WeatherIcon, {WeatherType} from "./WeatherIcon";
 export interface IWeatherCard
 {
     key: string;
-    time: string;
+    title: string;
     isNight?: boolean;
     weather: WeatherType;
     tempMain: number;
@@ -16,14 +16,14 @@ export interface IWeatherCard
 export default function WeatherCard(props: IWeatherCard)
 {
     // Update render on props value changed
-    const [time, setTime] = useState("N/A");
+    const [title, setTitle] = useState("N/A");
     const [weather, setWeather] = useState(WeatherType.Clear);
     const [isNight, setIsNight] = useState(false);
     const [tempMain, setTempMain] = useState("N/A");
     const [tempSub, setTempSub] = useState("N/A");
     useEffect(() => {
         // Set time
-        setTime(props.time);
+        setTitle(props.title);
         // Set weather icon
         setWeather(props.weather);
         if (props.isNight)
@@ -44,7 +44,7 @@ export default function WeatherCard(props: IWeatherCard)
 
     return (
     <div className="weather-card">
-        <h4 className="forecast-time">{time}</h4>
+        <h4 className="forecast-title">{title}</h4>
         <div className="spacing"></div>
         <WeatherIcon weather={weather} isNight={isNight}/>
         <div className="spacing"></div>

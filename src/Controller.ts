@@ -9,8 +9,9 @@ export default class Controller
 
     public Initialize()
     {
-        console.log("Conrtoller initialized!");
+        console.log("Conrtoller initializing!");
         //this.RequestWeatherData();
+        this.SetWeatherData();
     }
 
     public RequestWeatherData()
@@ -45,4 +46,9 @@ export default class Controller
         });
         */
     }
+
+    SetWeatherData()
+    {
+        console.log("Set weather data");
+    }  
 }
