@@ -15,7 +15,7 @@ export interface IWeatherCard
 export default function WeatherCard(props: IWeatherCard)
 {
     const [time, setTime] = useState("N/A");
-    const [weather, setWeather] = useState(WeatherType.Clear);
+    const [weather, setWeather] = useState(WeatherType.Cloudy);
     const [tempMain, setTempMain] = useState("N/A");
     const [tempSub, setTempSub] = useState("N/A");
 
@@ -23,7 +23,7 @@ export default function WeatherCard(props: IWeatherCard)
     <div className="weather-card">
         <h4 className="forecast-time">{props.time}</h4>
         <div className="spacing"></div>
-        <WeatherIcon/>
+        <WeatherIcon weather={weather}/>
         <div className="spacing"></div>
         {
             props.tempSub? 

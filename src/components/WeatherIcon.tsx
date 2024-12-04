@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./WeatherIcon.css";
 
 export enum WeatherType
@@ -38,14 +38,19 @@ export enum WeatherType
 
 interface IWeatherIcon
 {
+    weather: WeatherType;
     width?: string;
-    weather?: WeatherType;
     isNight?: boolean;
 }
 
 export default function WeatherIcon(props: IWeatherIcon)
 {
+    // Update render on props value changed
     const [weather, setWeather] = useState(WeatherType.Clear);
+    useEffect(() => {
+        setWeather(props.weather);
+    }
+    , [props]);
 
     function GetIconPath(weather: WeatherType): string
     {

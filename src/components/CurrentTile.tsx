@@ -1,6 +1,6 @@
 import "./CurrentTile.css";
 import { useEffect, useState } from "react";
-import WeatherIcon from "./WeatherIcon";
+import WeatherIcon, { WeatherType } from "./WeatherIcon";
 import { DAYS, MONTHS } from "../Define";
 
 interface ICurrentTile
@@ -85,7 +85,7 @@ export default function CurrentTile(props: ICurrentTile)
                 
             </div>
             <div className="right-block">
-                <WeatherIcon width="150px"/> 
+                <WeatherIcon weather={WeatherType.MostlyClear} isNight={true} width="150px"/> 
                 <h1 className="current-temperature">{props.temperature}°</h1>
                 <h4 className="weather-detail">Precipitation: {props.precipitation}%</h4>
                 <h4 className="weather-detail">Humidity: {props.humidity}%</h4>
