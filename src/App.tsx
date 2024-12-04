@@ -18,7 +18,7 @@ function App() {
   	return (
     <>
 		<div className="container">
-			<CurrentTile location="新莊" locationSub="Xinzhuang" weather={WeatherType.PartlyCloudy} isNight={false} temperature={21} precipitation={40} humidity={70}/>
+			<CurrentTile weatherCard={weatherCardCurrent}/>
 			<DayTile weatherCards={weatherCardsDay}/>
 			<WeekTile weatherCards={weatherCardsWeek}/>
 			<br/>
@@ -30,6 +30,16 @@ function App() {
 
 export default App;
 
+const weatherCardCurrent = 
+{
+	location: "新莊",
+    locationSub: "Xinzhuang",
+    weather: WeatherType.Clear,
+    isNight: false,
+    temperature: 25,
+    precipitation: 12,
+    humidity: 77
+}
 
 const weatherCardsDay = [
 	{
@@ -41,7 +51,7 @@ const weatherCardsDay = [
 	{
 		"title": "09:00",
 		"tempMain": 22,
-		"weather": WeatherType.Windy,
+		"weather": WeatherType.Flurries,
 		"isNight": false
 	},
 	{

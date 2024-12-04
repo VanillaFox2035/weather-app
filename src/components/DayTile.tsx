@@ -13,10 +13,10 @@ interface IDayWeatherCard
 
 const defaultCard: IDayWeatherCard = 
 {
-    "title": "06:00",
-	"tempMain": 20,
-	"weather": WeatherType.Clear,
-	"isNight": false
+    title: "06:00",
+	tempMain: 20,
+	weather: WeatherType.Clear,
+	isNight: false
 }
 
 interface IDayTile

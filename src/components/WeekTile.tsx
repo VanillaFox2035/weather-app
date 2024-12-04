@@ -13,10 +13,10 @@ interface IWeekWeatherCard
 
 const defaultCard: IWeekWeatherCard = 
 {
-    "title": "Sun",
-	"tempMain": 20,
-	"tempSub": 15,
-	"weather": WeatherType.Clear
+    title: "Sun",
+	tempMain: 20,
+	tempSub: 15,
+	weather: WeatherType.Clear
 }
 
 interface IWeekTile

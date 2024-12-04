@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import WeatherIcon, { WeatherType } from "./WeatherIcon";
 import { DAYS, MONTHS } from "../Define";
 
-interface ICurrentTile
+interface ICurrentWeatherCard
 {
     location: string;
     locationSub?: string;
@@ -14,16 +14,26 @@ interface ICurrentTile
     humidity: number;
 }
 
+const defaultCard: ICurrentWeatherCard = 
+{
+    location: "新莊",
+    locationSub: "Xinzhuang",
+    weather: WeatherType.Clear,
+    isNight: false,
+    temperature: 20,
+    precipitation: 50,
+    humidity: 70
+}
+
+interface ICurrentTile
+{    
+    weatherCard: ICurrentWeatherCard;
+}
+
 export default function CurrentTile(props: ICurrentTile)
 {
-    // Prop update
-    const [location, setLocation] = useState("N/A");
-    const [locationSub, setLocationSub] = useState("N/A");
-    const [weather, setWeather] = useState(WeatherType.Clear);
-    const [isNight, setIsNight] = useState(false);
-    const [temperature, setTemperature] = useState("N/A");
-    const [precipitation, setPrecipitation] = useState("N/A");
-    const [humidity, setHumidity] = useState("N/A");
+    // Weather update
+    const [weatherCard, setWeatherCard] = useState(defaultCard);
 
     // Time update
     const [time, setTime] = useState("N/A");
@@ -32,20 +42,7 @@ export default function CurrentTile(props: ICurrentTile)
 
     useEffect(() => {
         // Update on prop change
-        setLocation(props.location);
-        if (props.locationSub)
-        {
-            setLocationSub(props.locationSub);
-        }
-        else
-        {
-            setLocationSub("");
-        }
-        setWeather(props.weather);
-        setIsNight(props.isNight);
-        setTemperature(props.temperature.toString());
-        setPrecipitation(props.precipitation.toString());
-        setHumidity(props.humidity.toString());
+        setWeatherCard(props.weatherCard);
 
         // Update every 0.1 seconds
         const interval = setInterval(() => {
@@ -99,8 +96,8 @@ export default function CurrentTile(props: ICurrentTile)
             <div className="left-block">
                 <div className="flex-block">
                     <img width="18px" src="/location.svg"/>
-                    <h2 className="location-text">{location}</h2>
-                    <h2 className="location-text-sub">{locationSub}</h2>
+                    <h2 className="location-text">{weatherCard.location}</h2>
+                    <h2 className="location-text-sub">{weatherCard.locationSub}</h2>
                 </div>
 
                 <div className="flex-block">
@@ -112,10 +109,10 @@ export default function CurrentTile(props: ICurrentTile)
                 
             </div>
             <div className="right-block">
-                <WeatherIcon weather={weather} isNight={isNight} width="150px"/> 
-                <h1 className="current-temperature">{temperature}°</h1>
-                <h4 className="weather-detail">Precipitation: {precipitation}%</h4>
-                <h4 className="weather-detail">Humidity: {humidity}%</h4>
+                <WeatherIcon weather={weatherCard.weather} isNight={weatherCard.isNight} width="150px"/> 
+                <h1 className="current-temperature">{weatherCard.temperature}°</h1>
+                <h4 className="weather-detail">Precipitation: {weatherCard.precipitation}%</h4>
+                <h4 className="weather-detail">Humidity: {weatherCard.humidity}%</h4>
             </div>
         </div>
     );
