@@ -49,8 +49,7 @@ export default function WeatherIcon(props: IWeatherIcon)
     const [weather, setWeather] = useState(WeatherType.Clear);
     useEffect(() => {
         setWeather(props.weather);
-    }
-    , [props]);
+    }, [props]);
 
     function GetIconPath(weather: WeatherType): string
     {
@@ -65,7 +64,7 @@ export default function WeatherIcon(props: IWeatherIcon)
                 file = (props.isNight? "Night/mostly_clear_night" : "Day/mostly_clear_day");
                 break;
             case WeatherType.PartlyCloudy:
-                file = (props.isNight? "Night/partly_clear_night" : "Day/partly_clear_day");
+                file = (props.isNight? "Night/partly_cloudy_night" : "Day/partly_cloudy_day");
                 break;
             case WeatherType.MostlyCloudy:
                 file = (props.isNight? "Night/mostly_cloudy_night" : "Day/mostly_cloudy_day");
