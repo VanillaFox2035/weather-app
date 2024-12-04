@@ -3,7 +3,7 @@ import "./ForecastTile.css";
 import WeatherCard from "./WeatherCard";
 import { WeatherType } from "./WeatherIcon";
 
-interface IWeekWeatherCard
+export interface IWeekWeatherCard
 {
     title: string;
     tempMain: number;
@@ -11,7 +11,7 @@ interface IWeekWeatherCard
     weather: WeatherType;
 }
 
-const defaultCard: IWeekWeatherCard = 
+export const defaultCard: IWeekWeatherCard = 
 {
     title: "Sun",
 	tempMain: 20,

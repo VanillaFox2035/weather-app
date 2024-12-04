@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import WeatherIcon, { WeatherType } from "./WeatherIcon";
 import { DAYS, MONTHS } from "../Define";
 
-interface ICurrentWeatherCard
+export interface ICurrentWeatherCard
 {
     location: string;
     locationSub?: string;
@@ -14,7 +14,7 @@ interface ICurrentWeatherCard
     humidity: number;
 }
 
-const defaultCard: ICurrentWeatherCard = 
+export const defaultCard: ICurrentWeatherCard = 
 {
     location: "新莊",
     locationSub: "Xinzhuang",

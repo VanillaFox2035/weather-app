@@ -3,7 +3,7 @@ import "./ForecastTile.css";
 import WeatherCard from "./WeatherCard";
 import { WeatherType } from "./WeatherIcon";
 
-interface IDayWeatherCard
+export interface IDayWeatherCard
 {
     title: string;
     tempMain: number;
@@ -11,7 +11,7 @@ interface IDayWeatherCard
     isNight: boolean;
 }
 
-const defaultCard: IDayWeatherCard = 
+export const defaultCard: IDayWeatherCard = 
 {
     title: "06:00",
 	tempMain: 20,
