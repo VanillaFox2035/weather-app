@@ -49,8 +49,8 @@ export default function WeekTile(props: IWeekTile)
     return (
         <div className="forecast-tile">
             {
-                weatherCardsWeek.map((value) => 
-                <WeatherCard time={value.time} tempMain={value.tempMain} tempSub={value.tempSub}/>)
+                weatherCardsWeek.map((value, index) => 
+                <WeatherCard key={"week-tile-" + index.toString()}  time={value.time} tempMain={value.tempMain} tempSub={value.tempSub}/>)
             }
         </div>
     );

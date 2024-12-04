@@ -42,8 +42,8 @@ export default function DayTile(props: IDayTile)
     return (
         <div className="forecast-tile">
             {
-                weatherCardsDay.map((value) => 
-                    <WeatherCard time={value.time} tempMain={value.tempMain}/>)
+                weatherCardsDay.map((value, index) => 
+                    <WeatherCard key={"day-tile-" + index.toString()} time={value.time} tempMain={value.tempMain}/>)
             }
         </div>
     );

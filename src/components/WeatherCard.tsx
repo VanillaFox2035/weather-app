@@ -4,6 +4,7 @@ import WeatherIcon, {WeatherType} from "./WeatherIcon";
 
 export interface IWeatherCard
 {
+    key: string;
     time: string;
     weather?: WeatherType;
     tempMain: number;
@@ -13,7 +14,7 @@ export interface IWeatherCard
 export default function WeatherCard(props: IWeatherCard)
 {
     return (
-    <div className="weather-card">
+    <div className="weather-card" key={props.key}>
         <h4 className="forecast-time">{props.time}</h4>
         <div className="spacing"></div>
         <WeatherIcon/>
