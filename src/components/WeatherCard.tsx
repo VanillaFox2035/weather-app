@@ -16,11 +16,11 @@ export interface IWeatherCard
 export default function WeatherCard(props: IWeatherCard)
 {
     // Update render on props value changed
-    const [title, setTitle] = useState("N/A");
+    const [title, setTitle] = useState("Title");
     const [weather, setWeather] = useState(WeatherType.Clear);
     const [isNight, setIsNight] = useState(false);
-    const [tempMain, setTempMain] = useState("N/A");
-    const [tempSub, setTempSub] = useState("N/A");
+    const [tempMain, setTempMain] = useState("0");
+    const [tempSub, setTempSub] = useState("0");
     useEffect(() => {
         // Set time
         setTitle(props.title);

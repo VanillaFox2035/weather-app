@@ -14,7 +14,7 @@ export interface IDayWeatherCard
 export const defaultCard: IDayWeatherCard = 
 {
     title: "06:00",
-	tempMain: 20,
+	tempMain: 0,
 	weather: WeatherType.Clear,
 	isNight: false
 }

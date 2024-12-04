@@ -14,8 +14,8 @@ export interface IWeekWeatherCard
 export const defaultCard: IWeekWeatherCard = 
 {
     title: "Sun",
-	tempMain: 20,
-	tempSub: 15,
+	tempMain: 0,
+	tempSub: 0,
 	weather: WeatherType.Clear
 }
 

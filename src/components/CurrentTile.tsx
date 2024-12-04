@@ -36,20 +36,24 @@ export default function CurrentTile(props: ICurrentTile)
     const [weatherCard, setWeatherCard] = useState(defaultCard);
 
     // Time update
-    const [time, setTime] = useState("N/A");
-    const [timeSecond, setTimeSecond] = useState("N/A");
-    const [date, setDate] = useState("N/A");
+    const [time, setTime] = useState("00:00");
+    const [timeSecond, setTimeSecond] = useState("00");
+    const [date, setDate] = useState("Sunday");
+
+    function SetTimeTile()
+    {
+        setTime(GetFormattedTime());
+        setTimeSecond(GetFormattedTimeSecond());
+        setDate(GetFormattedDate());
+    }
 
     useEffect(() => {
         // Update on prop change
         setWeatherCard(props.weatherCard);
 
         // Update every 0.1 seconds
-        const interval = setInterval(() => {
-            setTime(GetFormattedTime());
-            setTimeSecond(GetFormattedTimeSecond());
-            setDate(GetFormattedDate());
-        }, 100);
+        SetTimeTile();
+        const interval = setInterval(SetTimeTile, 100);
 
         // Clear clock after component destroyed
         return () => {
