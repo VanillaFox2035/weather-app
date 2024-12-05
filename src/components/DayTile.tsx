@@ -28,7 +28,10 @@ export default function DayTile(props: IDayTile)
 {
     const [weatherCards, setWeatherCards] = useState([defaultCard]);
     useEffect(() => {
-        setWeatherCards(props.weatherCards);
+        // Update every 0.1 seconds
+        setInterval(() => {
+            setWeatherCards(props.weatherCards);
+        }, 100);
     }, [props])
 
     return (

@@ -28,7 +28,9 @@ export default function WeekTile(props: IWeekTile)
 {
     const [weatherCards, setWeatherCards] = useState([defaultCard]);
     useEffect(() => {
-        setWeatherCards(props.weatherCards);
+        setInterval(() => {
+            setWeatherCards(props.weatherCards);
+        }, 100);
     }, [props])
 
     return (

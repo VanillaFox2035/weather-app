@@ -4,19 +4,19 @@ import { IDayWeatherCard, defaultCard as defaultCardDay } from "./components/Day
 import { IWeekWeatherCard, defaultCard as defaultCardWeek } from "./components/WeekTile";
 import { WeatherType } from "./components/WeatherIcon";
 import { host } from "./App";
+import { DAYS } from "./Define";
 
 export default class Host
 {
     // Public accessed data
 	private isInitialized = false;
-    public weatherCardCurrent: ICurrentWeatherCard = defaultCardCurrent;
-    public weatherCardDay: IDayWeatherCard[] = [defaultCardDay];
-    public weatherCardWeek: IWeekWeatherCard[] = [defaultCardWeek];
+    public weatherCardCurrent: ICurrentWeatherCard = {...defaultCardCurrent}; // Deep copy
+    public weatherCardDay: IDayWeatherCard[] = [{...defaultCardDay}]; 
+    public weatherCardWeek: IWeekWeatherCard[] = [{...defaultCardWeek}]; 
 
     constructor()
     {
-		this.weatherCardDay = dWeatherCardsDay;
-		this.weatherCardWeek = dWeatherCardsWeek;
+
     }
 
     public Initialize()
@@ -34,8 +34,8 @@ export default class Host
     {
         const url = "http://localhost:4200/";
         this.SendRequest(url + "CurrentWeather", this.ParseCurrentWeather, this.AlertError);
-		//this.SendRequest(url + "DayWeather", this.ParseDayWeather, this.AlertError);
-		//this.SendRequest(url + "WeekWeather", this.ParseWeekWeather, this.AlertError);
+		this.SendRequest(url + "DayWeather", this.ParseDayWeather, this.AlertError);
+		this.SendRequest(url + "WeekWeather", this.ParseWeekWeather, this.AlertError);
     }
 
 	private ParseCurrentWeather(data: any)
@@ -56,12 +56,98 @@ export default class Host
 
 	private ParseDayWeather(data: any)
 	{
+		// Parse data
+		const stationData = data.records.locations[0].location[0];
+		const weatherData = stationData.weatherElement;
+
+		const weatherArray = weatherData[1].time;
+		const temperatureArray = weatherData[3].time;
+
+		// Skip previous data
+		let skip = 0;
+		for (let i = 0; i < weatherArray.length; i++)
+		{
+			const time: string = weatherArray[i].startTime;
+			const date = host.GetDate(time);
+			if (date >= Date.now())
+			{
+				skip = i;
+				break;
+			}
+		}
+
 		// Render fields
+		const cardCount = 7;
+		while (host.weatherCardDay.length < cardCount)
+		{
+			host.weatherCardDay.push({...defaultCardDay}); // Deep copy
+		}
+		for (let i = 0; i < cardCount; i++)
+		{
+			const weatherIndex = i + skip;
+			const time: string = weatherArray[weatherIndex].startTime;
+			const title: string = time.substring(11, 16);
+			const hour: number = Number(title.substring(0, 2));
+			const weather = weatherArray[weatherIndex].elementValue[0].value;
+			const temperature = temperatureArray[weatherIndex].elementValue[0].value;
+			host.weatherCardDay[i].title = title;
+			host.weatherCardDay[i].weather = host.TranslateWeather(weather);
+			host.weatherCardDay[i].isNight = host.GetIsNight(hour);
+			host.weatherCardDay[i].tempMain = temperature;
+		}
 	}
 
 	private ParseWeekWeather(data: any)
 	{
+		// Parse data
+		const stationData = data.records.locations[0].location[0];
+		const weatherData = stationData.weatherElement;
+		const weatherArray = weatherData[6].time;
+		const tempMaxArray = weatherData[12].time;
+		const tempMinArray = weatherData[8].time;
+
+		// Skip today's data
+		let skip = 0;
+		for (let i = 0; i < weatherArray.length; i++)
+		{
+			const time: string = weatherArray[i].startTime;
+			const date: number = host.GetDate(time);
+			if (date >= Date.now())
+			{
+				skip = i;
+				break;
+			}
+		}
+
+		console.log("p", tempMaxArray);
+
 		// Render fields
+		const cardCount = 7;
+		while (host.weatherCardWeek.length < cardCount)
+		{
+			host.weatherCardWeek.push({...defaultCardWeek}); // Deep copy
+		}
+		for (let i = 0; i < cardCount; i++)
+		{
+			const weatherIndex = i * 2 + skip;
+			const time: string = weatherArray[weatherIndex].startTime;
+			let title: string = "Tomorrow";
+			if (i > 0)
+			{
+				const day = new Date(host.GetDate(time)).getDay(); // Get day of week
+				title = DAYS[day];
+			}
+			const weatherDay   = weatherArray[weatherIndex + 0].elementValue[0].value;
+			//const weatherNight = weatherArray[weatherIndex + 1].elementValue[0].value;
+			const tempMaxDay   = tempMaxArray[weatherIndex + 0].elementValue[0].value;
+			const tempMaxNight = tempMaxArray[weatherIndex + 1].elementValue[0].value;
+			const tempMinDay   = tempMinArray[weatherIndex + 0].elementValue[0].value;
+			const tempMinNight = tempMinArray[weatherIndex + 1].elementValue[0].value;
+			host.weatherCardWeek[i].title = title;
+			host.weatherCardWeek[i].weather = host.TranslateWeather(weatherDay);
+			host.weatherCardWeek[i].tempMain = Math.max(tempMaxDay, tempMaxNight);
+			host.weatherCardWeek[i].tempSub = Math.min(tempMinDay, tempMinNight);
+		}
 	}
 
 	private AlertError(error: string)
@@ -163,6 +249,12 @@ export default class Host
 		return weather;
 	}
 
+	public GetDate(timeString: string): number
+	{
+		const standardTime = timeString.replace(" ", "T");
+		return Date.parse(standardTime);
+	}
+
 	public GetIsNight(hour: number): boolean
 	{
 		let result = false;
@@ -170,96 +262,6 @@ export default class Host
 		{
 			result = true;
 		}
-		return false;
+		return result;
 	}
 }
-
-const dWeatherCardsDay = [
-	{
-		"title": "06:00",
-		"tempMain": 10,
-		"weather": WeatherType.Blizzard,
-		"isNight": false
-	},
-	{
-		"title": "09:00",
-		"tempMain": 12,
-		"weather": WeatherType.Flurries,
-		"isNight": false
-	},
-	{
-		"title": "12:00",
-		"tempMain": 51,
-		"weather": WeatherType.Clear,
-		"isNight": false
-	},
-	{
-		"title": "15:00",
-		"tempMain": 55,
-		"weather": WeatherType.PartlyCloudy,
-		"isNight": false
-	},
-	{
-		"title": "18:00",
-		"tempMain": 26,
-		"weather": WeatherType.MostlyClear,
-		"isNight": true
-	},
-	{
-		"title": "21:00",
-		"tempMain": 22,
-		"weather": WeatherType.Typhoon,
-		"isNight": true
-	},
-	{
-		"title": "24:00",
-		"tempMain": -2,
-		"weather": WeatherType.Umbrella,
-		"isNight": true
-	}
-];
-
-const dWeatherCardsWeek = [
-	{
-		"title": "Sun",
-		"tempMain": 2,
-		"tempSub": -50,
-		"weather": WeatherType.Clear
-	},
-	{
-		"title": "Mon",
-		"tempMain": 26,
-		"tempSub": 15,
-		"weather": WeatherType.Thunderstorms
-	},
-	{
-		"title": "Tue",
-		"tempMain": 50,
-		"tempSub": 18,
-		"weather": WeatherType.VeryHot
-	},
-	{
-		"title": "Wed",
-		"tempMain": 20,
-		"tempSub": -15,
-		"weather": WeatherType.VeryCold
-	},
-	{
-		"title": "Thu",
-		"tempMain": -20,
-		"tempSub": -25,
-		"weather": WeatherType.Cloudy
-	},
-	{
-		"title": "Fri",
-		"tempMain": 22,
-		"tempSub": 14,
-		"weather": WeatherType.Icy
-	},
-	{
-		"title": "Sat",
-		"tempMain": 7,
-		"tempSub": 5,
-		"weather": WeatherType.BlowingSnow
-	}
-];
