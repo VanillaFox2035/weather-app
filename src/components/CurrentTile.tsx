@@ -5,6 +5,7 @@ import { DAYS, MONTHS } from "../Define";
 
 export interface ICurrentWeatherCard
 {
+    lastUpdated: string;
     location: string;
     locationSub?: string;
     weather: WeatherType;
@@ -16,6 +17,7 @@ export interface ICurrentWeatherCard
 
 export const defaultCard: ICurrentWeatherCard = 
 {
+    lastUpdated: "00:00",
     location: "新莊",
     locationSub: "Xinzhuang",
     weather: WeatherType.Clear,
@@ -96,6 +98,8 @@ export default function CurrentTile(props: ICurrentTile)
     }
 
     return (
+        <>
+        <div className="last-updated-time">Last updated: {weatherCard.lastUpdated}</div>
         <div className="current-tile">
             <div className="left-block">
                 <div className="flex-block">
@@ -119,5 +123,6 @@ export default function CurrentTile(props: ICurrentTile)
                 <h4 className="weather-detail">Humidity: {weatherCard.humidity}%</h4>
             </div>
         </div>
+        </>
     );
 }

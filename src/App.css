@@ -18,3 +18,11 @@
   font-family: monospace;
   color:darkgray;
 }
+
+.last-updated-time
+{
+  padding-right: 2em;
+  font-family: monospace;
+  color:darkgray;
+  text-align: right;
+}

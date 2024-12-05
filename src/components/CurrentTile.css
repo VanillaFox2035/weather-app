@@ -3,9 +3,18 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin: 1em;
+    margin-top: 0.2em;
     padding: 1em;
     border-radius: 20px;
     background-color: #303030;
+}
+
+.last-updated-time
+{
+  padding-right: 2em;
+  font-family: monospace;
+  color:darkgray;
+  text-align: right;
 }
 
 .left-block 

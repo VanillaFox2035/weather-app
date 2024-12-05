@@ -32,6 +32,7 @@ export default class Host
 
     public RequestWeatherData()
     {
+		console.log(`Requested weather data at:\n ${new Date().toString()}`);
         const url = "http://localhost:4200/";
         this.SendRequest(url + "CurrentWeather", this.ParseCurrentWeather, this.AlertError);
 		this.SendRequest(url + "DayWeather", this.ParseDayWeather, this.AlertError);
@@ -43,6 +44,9 @@ export default class Host
 		// Parse data
 		const stationData = data.records.Station[0];
 		const weatherData = stationData.WeatherElement;
+		const lastUpdatedTime = data.timestamp;
+		const lastUpdatedHour = new Date(lastUpdatedTime).getHours().toString();
+		const lastUpdatedMinute = new Date(lastUpdatedTime).getMinutes().toString();
 
 		// Render fields
 		host.weatherCardCurrent.location = "新莊"; // Locked for now
@@ -52,6 +56,7 @@ export default class Host
 		host.weatherCardCurrent.temperature = weatherData.AirTemperature;
 		host.weatherCardCurrent.precipitation = weatherData.Now.Precipitation;
 		host.weatherCardCurrent.humidity = weatherData.RelativeHumidity;
+		host.weatherCardCurrent.lastUpdated = lastUpdatedHour + ":" + lastUpdatedMinute;
 	}
 
 	private ParseDayWeather(data: any)
@@ -118,8 +123,6 @@ export default class Host
 				break;
 			}
 		}
-
-		console.log("p", tempMaxArray);
 
 		// Render fields
 		const cardCount = 7;
