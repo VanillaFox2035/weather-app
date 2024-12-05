@@ -71,12 +71,78 @@ export default class Host
 
 	private TranslateWeather(inputWx: string): WeatherType
 	{
+		// Record word inclusions
+		const clear: boolean = inputWx.includes("晴");
+		const partlyCloudy: boolean = inputWx.includes("多雲");
+		const overcast: boolean = inputWx.includes("陰");
+		const thunder: boolean = inputWx.includes("雷");
+		const scatteredRain: boolean = inputWx.includes("局部") || inputWx.includes("短暫");
+		const showers: boolean = inputWx.includes("雨");
+		const snow: boolean = inputWx.includes("雪");
+		const fog: boolean = inputWx.includes("霧");
 
-		
+		// Decides weather
+		let weather = WeatherType.Unknown;
+		if (clear)
+		{
+			weather = WeatherType.Clear;
+			if (partlyCloudy)
+			{
+				if (inputWx.indexOf("晴") < inputWx.indexOf("多雲"))
+				{
+					weather = WeatherType.MostlyClear;
+				}
+				else
+				{
+					weather = WeatherType.PartlyCloudy;
+				}
+			} 
+			if (overcast) weather = WeatherType.MostlyCloudy;
+			if (showers) weather = WeatherType.ScatteredShowers;
+			if (scatteredRain) weather = WeatherType.ScatteredShowers;
+			if (thunder) weather = WeatherType.ScatteredThunderstorms;
+			if (snow) weather = WeatherType.ScatteredSnow;
+		}
+		else if (partlyCloudy)
+		{
+			weather = WeatherType.PartlyCloudy;
+			if (overcast) weather = WeatherType.Cloudy;
+			if (showers) weather = WeatherType.ShowersRain;
+			if (scatteredRain) weather = WeatherType.Drizzle;
+			if (thunder) weather = WeatherType.Thunderstorms;
+			if (snow) weather = WeatherType.ShowersSnow;
+		}
+		else if (overcast)
+		{
+			weather = WeatherType.Cloudy;
+			if (showers) weather = WeatherType.ShowersRain;
+			if (scatteredRain) weather = WeatherType.Drizzle;
+			if (thunder) weather = WeatherType.Thunderstorms;
+			if (snow) weather = WeatherType.ShowersSnow;
+		}
+		else if (thunder)
+		{
+			weather = WeatherType.Thunderstorms;
+		}
+		else if (scatteredRain)
+		{
+			weather = WeatherType.Drizzle;
+		}
+		else if (showers)
+		{
+			weather = WeatherType.ShowersRain;
+		}
+		else if (snow)
+		{
+			weather = WeatherType.ShowersSnow;
+		}
+		else if (fog)
+		{
+			weather = WeatherType.Haze;
+		}
 
-		return WeatherType.Clear;
+		return weather;
 	}
-
 }
 
 const dWeatherCardCurrent = 

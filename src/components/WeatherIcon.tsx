@@ -34,6 +34,8 @@ export enum WeatherType
     VeryHot,
     VeryCold,
     Umbrella,
+    // Error
+    Unknown
 }
 
 interface IWeatherIcon
@@ -54,7 +56,7 @@ export default function WeatherIcon(props: IWeatherIcon)
     function GetIconPath(weather: WeatherType): string
     {
         const dir = "/WeatherIcons/Google/";
-        let file = "Day/clear_day";
+        let file = "x-symbol";
         switch (weather)
         {
             case WeatherType.Clear:
@@ -145,6 +147,7 @@ export default function WeatherIcon(props: IWeatherIcon)
                 file = "General/umbrella";
                 break;
             default:
+                file = "x-symbol";
                 break;
         }
         return dir + file + ".svg";
