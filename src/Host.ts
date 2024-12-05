@@ -15,7 +15,6 @@ export default class Host
 
     constructor()
     {
-		this.weatherCardCurrent = dWeatherCardCurrent;
 		this.weatherCardDay = dWeatherCardsDay;
 		this.weatherCardWeek = dWeatherCardsWeek;
     }
@@ -41,17 +40,18 @@ export default class Host
 
 	private ParseCurrentWeather(data: any)
 	{
-		console.log("current weather", data.records);
+		// Parse data
+		const stationData = data.records.Station[0];
+		const weatherData = stationData.WeatherElement;
 
-		// Set render field
+		// Render fields
 		host.weatherCardCurrent.location = "新莊"; // Locked for now
 		host.weatherCardCurrent.locationSub = "Xinzhuang"; // Locked for now
-		host.weatherCardCurrent.weather = WeatherType.Tornado;
-		host.weatherCardCurrent.isNight = false;
-		host.weatherCardCurrent.temperature = 10;
-		host.weatherCardCurrent.precipitation = 15;
-		host.weatherCardCurrent.humidity = 80;
-		
+		host.weatherCardCurrent.weather = host.TranslateWeather(weatherData.Weather);
+		host.weatherCardCurrent.isNight = host.GetIsNight(new Date().getHours());
+		host.weatherCardCurrent.temperature = weatherData.AirTemperature;
+		host.weatherCardCurrent.precipitation = weatherData.Now.Precipitation;
+		host.weatherCardCurrent.humidity = weatherData.RelativeHumidity;
 	}
 
 	private ParseDayWeather(data: any)
@@ -88,7 +88,7 @@ export default class Host
 		resolve(data);
 	}
 
-	private TranslateWeather(inputWx: string): WeatherType
+	public TranslateWeather(inputWx: string): WeatherType
 	{
 		// Record word inclusions
 		const clear: boolean = inputWx.includes("晴");
@@ -162,17 +162,16 @@ export default class Host
 
 		return weather;
 	}
-}
 
-const dWeatherCardCurrent = 
-{
-location: "新莊",
-locationSub: "Xinzhuang",
-weather: WeatherType.Clear,
-isNight: false,
-temperature: 25,
-precipitation: 12,
-humidity: 77
+	public GetIsNight(hour: number): boolean
+	{
+		let result = false;
+		if (hour <= 5 || hour >= 18)
+		{
+			result = true;
+		}
+		return false;
+	}
 }
 
 const dWeatherCardsDay = [

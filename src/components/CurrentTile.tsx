@@ -20,9 +20,9 @@ export const defaultCard: ICurrentWeatherCard =
     locationSub: "Xinzhuang",
     weather: WeatherType.Clear,
     isNight: false,
-    temperature: 20,
-    precipitation: 50,
-    humidity: 70
+    temperature: 0,
+    precipitation: 0,
+    humidity: 0
 }
 
 interface ICurrentTile
