@@ -32,7 +32,7 @@ export default class Host
 
     public RequestWeatherData()
     {
-		console.log(`Requested weather data at:\n ${new Date().toString()}`);
+		console.log(`Requested weather data at ${this.GetDateString()}`);
         const url = "http://localhost:4200/";
         this.SendRequest(url + "CurrentWeather", this.ParseCurrentWeather, this.AlertError);
 		this.SendRequest(url + "DayWeather", this.ParseDayWeather, this.AlertError);
@@ -266,5 +266,28 @@ export default class Host
 			result = true;
 		}
 		return result;
+	}
+
+	// Pad number
+	private PadNumber(input: string, pad: number): string
+	{
+		let result = input;
+		while(result.length < pad)
+		{
+			result = "0" + result;
+		}
+		return result;
+	}
+	
+		// For printing date
+	private GetDateString(): string
+	{
+		const year = new Date().getFullYear().toString();
+		const month = this.PadNumber(new Date().getMonth().toString(), 2);
+		const date = this.PadNumber(new Date().getDate().toString(), 2);
+		const hour = this.PadNumber(new Date().getHours().toString(), 2);
+		const minute = this.PadNumber(new Date().getMinutes().toString(), 2);
+		const second = this.PadNumber(new Date().getSeconds().toString(), 2);
+		return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
 	}
 }
