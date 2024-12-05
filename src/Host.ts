@@ -44,8 +44,8 @@ export default class Host
 		const stationData = data.records.Station[0];
 		const weatherData = stationData.WeatherElement;
 		const lastUpdatedTime = data.timestamp;
-		const lastUpdatedHour = new Date(lastUpdatedTime).getHours().toString();
-		const lastUpdatedMinute = new Date(lastUpdatedTime).getMinutes().toString();
+		const lastUpdatedHour = host.PadNumber(new Date(lastUpdatedTime).getHours().toString(), 2);
+		const lastUpdatedMinute = host.PadNumber(new Date(lastUpdatedTime).getMinutes().toString(), 2);
 
 		// Render fields
 		host.weatherCardCurrent.location = "新莊"; // Locked for now
@@ -268,7 +268,7 @@ export default class Host
 	}
 
 	// Pad number
-	private PadNumber(input: string, pad: number): string
+	public PadNumber(input: string, pad: number): string
 	{
 		let result = input;
 		while(result.length < pad)
