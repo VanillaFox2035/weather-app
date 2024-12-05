@@ -39,9 +39,9 @@ export default class Host
 		//this.SendRequest(url + "WeekWeather", this.ParseWeekWeather, this.AlertError);
     }
 
-	private ParseCurrentWeather(data: JSON)
+	private ParseCurrentWeather(data: any)
 	{
-		console.log("current weather", data);
+		console.log("current weather", data.records);
 
 		// Set render field
 		host.weatherCardCurrent.location = "新莊"; // Locked for now
@@ -54,12 +54,12 @@ export default class Host
 		
 	}
 
-	private ParseDayWeather(data: JSON)
+	private ParseDayWeather(data: any)
 	{
 		// Render fields
 	}
 
-	private ParseWeekWeather(data: JSON)
+	private ParseWeekWeather(data: any)
 	{
 		// Render fields
 	}
@@ -69,9 +69,9 @@ export default class Host
 		console.error(error);
 	}
 
-	private async SendRequest(url: string, resolve: (data: JSON) => void, reject: (error: string) => void)
+	private async SendRequest(url: string, resolve: (data: object) => void, reject: (error: string) => void)
 	{
-		let data = JSON.parse("{}");
+		let data = {};
 		try
 		{
 			const response = await fetch(url);
