@@ -7,27 +7,33 @@ import { WeatherType } from "./components/WeatherIcon";
 export default class Host
 {
     // Public accessed data
+	private isInitialized = false;
     public weatherCardCurrent: ICurrentWeatherCard = defaultCardCurrent;
     public weatherCardDay: IDayWeatherCard[] = [defaultCardDay];
     public weatherCardWeek: IWeekWeatherCard[] = [defaultCardWeek];
 
     constructor()
     {
-        this.weatherCardCurrent = dWeatherCardCurrent;
-        this.weatherCardDay = dWeatherCardsDay;
-        this.weatherCardWeek = dWeatherCardsWeek;
+		this.weatherCardCurrent = dWeatherCardCurrent;
+		this.weatherCardDay = dWeatherCardsDay;
+		this.weatherCardWeek = dWeatherCardsWeek;
     }
 
     public Initialize()
     {
+		if (this.isInitialized)
+		{
+			return;
+		}
+		this.isInitialized = true;
         console.log("Conrtoller initializing!");
-        //this.RequestWeatherData();
-        this.SetWeatherData();
+        this.RequestWeatherData();
+
     }
 
     public RequestWeatherData()
     {
-        /*
+        
         const url = "http://localhost:4200/";
         // Current weather
         fetch(url + "CurrentWeather")
@@ -37,7 +43,7 @@ export default class Host
         .catch((e) => {
             console.log(`Fetching current weather failed! ${e}`);
         });
-        
+        /*
         // Day weather
         fetch(url + "DayWeather")
         .then((data) => {
@@ -58,10 +64,19 @@ export default class Host
         */
     }
 
-    SetWeatherData()
+    private SetWeatherData()
     {
         console.log("Set weather data");
     }  
+
+	private TranslateWeather(inputWx: string): WeatherType
+	{
+
+		
+
+		return WeatherType.Clear;
+	}
+
 }
 
 const dWeatherCardCurrent = 
