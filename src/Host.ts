@@ -3,6 +3,7 @@ import { ICurrentWeatherCard, defaultCard as defaultCardCurrent } from "./compon
 import { IDayWeatherCard, defaultCard as defaultCardDay } from "./components/DayTile";
 import { IWeekWeatherCard, defaultCard as defaultCardWeek } from "./components/WeekTile";
 import { WeatherType } from "./components/WeatherIcon";
+import { host } from "./App";
 
 export default class Host
 {
@@ -28,46 +29,64 @@ export default class Host
 		this.isInitialized = true;
         console.log("Conrtoller initializing!");
         this.RequestWeatherData();
-
     }
 
     public RequestWeatherData()
     {
-        
         const url = "http://localhost:4200/";
-        // Current weather
-        fetch(url + "CurrentWeather")
-        .then((data) => {
-            console.log("data", data);
-        })
-        .catch((e) => {
-            console.log(`Fetching current weather failed! ${e}`);
-        });
-        /*
-        // Day weather
-        fetch(url + "DayWeather")
-        .then((data) => {
-
-        })
-        .catch((e) => {
-            console.log(`Fetching day weather failed! ${e}`);
-        });
-
-        // Week weather
-        fetch(url + "WeekWeather")
-        .then((data) => {
-
-        })
-        .catch((e) => {
-            console.log(`Fetching week weather failed! ${e}`);
-        });
-        */
+        this.SendRequest(url + "CurrentWeather", this.ParseCurrentWeather, this.AlertError);
+		//this.SendRequest(url + "DayWeather", this.ParseDayWeather, this.AlertError);
+		//this.SendRequest(url + "WeekWeather", this.ParseWeekWeather, this.AlertError);
     }
 
-    private SetWeatherData()
-    {
-        console.log("Set weather data");
-    }  
+	private ParseCurrentWeather(data: JSON)
+	{
+		console.log("current weather", data);
+
+		// Set render field
+		host.weatherCardCurrent.location = "新莊"; // Locked for now
+		host.weatherCardCurrent.locationSub = "Xinzhuang"; // Locked for now
+		host.weatherCardCurrent.weather = WeatherType.Tornado;
+		host.weatherCardCurrent.isNight = false;
+		host.weatherCardCurrent.temperature = 10;
+		host.weatherCardCurrent.precipitation = 15;
+		host.weatherCardCurrent.humidity = 80;
+		
+	}
+
+	private ParseDayWeather(data: JSON)
+	{
+		// Render fields
+	}
+
+	private ParseWeekWeather(data: JSON)
+	{
+		// Render fields
+	}
+
+	private AlertError(error: string)
+	{
+		console.error(error);
+	}
+
+	private async SendRequest(url: string, resolve: (data: JSON) => void, reject: (error: string) => void)
+	{
+		let data = JSON.parse("{}");
+		try
+		{
+			const response = await fetch(url);
+			if (!response.ok)
+			{
+				reject(`Response status: ${response.status}`);
+			}
+			data = await response.json();
+		}
+		catch (e)
+		{
+			reject(`Fetching ${url} failed! ${e}`);
+		}
+		resolve(data);
+	}
 
 	private TranslateWeather(inputWx: string): WeatherType
 	{
@@ -147,13 +166,13 @@ export default class Host
 
 const dWeatherCardCurrent = 
 {
-	location: "新莊",
-    locationSub: "Xinzhuang",
-    weather: WeatherType.Clear,
-    isNight: false,
-    temperature: 25,
-    precipitation: 12,
-    humidity: 77
+location: "新莊",
+locationSub: "Xinzhuang",
+weather: WeatherType.Clear,
+isNight: false,
+temperature: 25,
+precipitation: 12,
+humidity: 77
 }
 
 const dWeatherCardsDay = [
