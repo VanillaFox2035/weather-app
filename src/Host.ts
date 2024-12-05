@@ -26,7 +26,6 @@ export default class Host
 			return;
 		}
 		this.isInitialized = true;
-        console.log("Conrtoller initializing!");
         this.RequestWeatherData();
     }
 
