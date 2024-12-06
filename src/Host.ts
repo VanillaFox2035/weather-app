@@ -81,7 +81,7 @@ export default class Host
 		}
 
 		// Render fields
-		const cardCount = 7;
+		const cardCount = 6;
 		while (host.weatherCardDay.length < cardCount)
 		{
 			host.weatherCardDay.push({...defaultCardDay}); // Deep copy
@@ -116,7 +116,11 @@ export default class Host
 		{
 			const time: string = weatherArray[i].startTime;
 			const date: number = host.GetDate(time);
-			if (date >= Date.now())
+			const compareString = 	new Date().getFullYear().toString() + "-"
+									host.PadNumber(new Date().getMonth().toString(), 2) + "-"
+									host.PadNumber(new Date().getDate().toString(), 2) +
+									+ "T23:59:59";
+			if (date >= Date.parse(compareString))
 			{
 				skip = i;
 				break;
@@ -124,7 +128,7 @@ export default class Host
 		}
 
 		// Render fields
-		const cardCount = 7;
+		const cardCount = 6;
 		while (host.weatherCardWeek.length < cardCount)
 		{
 			host.weatherCardWeek.push({...defaultCardWeek}); // Deep copy
