@@ -52,7 +52,7 @@ export default class Host
 		host.weatherCardCurrent.locationSub = "Xinzhuang"; // Locked for now
 		host.weatherCardCurrent.weather = host.TranslateWeather(weatherData.Weather);
 		host.weatherCardCurrent.isNight = host.GetIsNight(new Date().getHours());
-		host.weatherCardCurrent.temperature = weatherData.AirTemperature;
+		host.weatherCardCurrent.temperature = Math.round(weatherData.AirTemperature);
 		host.weatherCardCurrent.precipitation = weatherData.Now.Precipitation;
 		host.weatherCardCurrent.humidity = weatherData.RelativeHumidity;
 		host.weatherCardCurrent.lastUpdated = lastUpdatedHour + ":" + lastUpdatedMinute;
