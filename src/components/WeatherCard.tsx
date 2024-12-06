@@ -22,23 +22,29 @@ export default function WeatherCard(props: IWeatherCard)
     const [tempMain, setTempMain] = useState("0");
     const [tempSub, setTempSub] = useState("0");
     useEffect(() => {
-        // Set time
-        setTitle(props.title);
-        // Set weather icon
-        setWeather(props.weather);
-        if (props.isNight)
+        const interval = setInterval(() => {
+            // Set time
+            setTitle(props.title);
+            // Set weather icon
+            setWeather(props.weather);
+            if (props.isNight)
+            {
+                setIsNight(true);
+            }
+            else
+            {
+                setIsNight(false);
+            }
+            // Set temperature
+            setTempMain(props.tempMain.toString());
+            if (props.tempSub)
+            {
+                setTempSub(props.tempSub.toString());
+            }
+        }, 100);
+        return () =>
         {
-            setIsNight(true);
-        }
-        else
-        {
-            setIsNight(false);
-        }
-        // Set temperature
-        setTempMain(props.tempMain.toString());
-        if (props.tempSub)
-        {
-            setTempSub(props.tempSub.toString());
+            clearInterval(interval);
         }
     }, [props]);
 
