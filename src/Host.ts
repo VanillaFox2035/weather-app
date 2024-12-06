@@ -116,10 +116,10 @@ export default class Host
 		{
 			const time: string = weatherArray[i].startTime;
 			const date: number = host.GetDate(time);
-			const compareString = 	new Date().getFullYear().toString() + "-"
-									host.PadNumber(new Date().getMonth().toString(), 2) + "-"
+			const compareString = 	new Date().getFullYear().toString() + "-" +
+									host.PadNumber((new Date().getMonth() + 1).toString(), 2) + "-" +
 									host.PadNumber(new Date().getDate().toString(), 2) +
-									+ "T23:59:59";
+									"T23:59:59";
 			if (date >= Date.parse(compareString))
 			{
 				skip = i;
