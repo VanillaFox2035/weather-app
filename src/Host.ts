@@ -295,7 +295,7 @@ export default class Host
 	private GetDateString(): string
 	{
 		const year = new Date().getFullYear().toString();
-		const month = this.PadNumber(new Date().getMonth().toString(), 2);
+		const month = this.PadNumber((new Date().getMonth() + 1).toString(), 2);
 		const date = this.PadNumber(new Date().getDate().toString(), 2);
 		const hour = this.PadNumber(new Date().getHours().toString(), 2);
 		const minute = this.PadNumber(new Date().getMinutes().toString(), 2);
