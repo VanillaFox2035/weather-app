@@ -132,23 +132,32 @@ export default class Host
 		for (let i = 0; i < cardCount; i++)
 		{
 			const weatherIndex = i * 2 + skip;
-			const time: string = weatherArray[weatherIndex].startTime;
+			const time: string = weatherArray[weatherIndex + 0].startTime;
 			let title: string = "Tomorrow";
 			if (i > 0)
 			{
 				const day = new Date(host.GetDate(time)).getDay(); // Get day of week
 				title = DAYS[day];
 			}
-			const weatherDay   = weatherArray[weatherIndex + 0].elementValue[0].value;
-			//const weatherNight = weatherArray[weatherIndex + 1].elementValue[0].value;
-			const tempMaxDay   = tempMaxArray[weatherIndex + 0].elementValue[0].value;
-			const tempMaxNight = tempMaxArray[weatherIndex + 1].elementValue[0].value;
-			const tempMinDay   = tempMinArray[weatherIndex + 0].elementValue[0].value;
-			const tempMinNight = tempMinArray[weatherIndex + 1].elementValue[0].value;
 			host.weatherCardWeek[i].title = title;
-			host.weatherCardWeek[i].weather = host.TranslateWeather(weatherDay);
-			host.weatherCardWeek[i].tempMain = Math.max(tempMaxDay, tempMaxNight);
-			host.weatherCardWeek[i].tempSub = Math.min(tempMinDay, tempMinNight);
+			const weatherDay   = weatherArray[weatherIndex + 0].elementValue[0].value;
+			const tempMaxDay   = tempMaxArray[weatherIndex + 0].elementValue[0].value;
+			const tempMinDay   = tempMinArray[weatherIndex + 0].elementValue[0].value;
+			if (weatherIndex + 1 < weatherArray.length)
+			{
+				//const weatherNight = weatherArray[weatherIndex + 1].elementValue[0].value;
+				const tempMaxNight = tempMaxArray[weatherIndex + 1].elementValue[0].value;
+				const tempMinNight = tempMinArray[weatherIndex + 1].elementValue[0].value;
+				host.weatherCardWeek[i].weather = host.TranslateWeather(weatherDay);
+				host.weatherCardWeek[i].tempMain = Math.max(tempMaxDay, tempMaxNight);
+				host.weatherCardWeek[i].tempSub = Math.min(tempMinDay, tempMinNight);
+			}
+			else
+			{
+				host.weatherCardWeek[i].weather = host.TranslateWeather(weatherDay);
+				host.weatherCardWeek[i].tempMain = tempMaxDay;
+				host.weatherCardWeek[i].tempSub = tempMinDay;
+			}
 		}
 	}
 
