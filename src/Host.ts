@@ -32,7 +32,7 @@ export default class Host
     public RequestWeatherData()
     {
 		console.log(`Requested weather data at ${this.GetDateString()}`);
-        const url = "http://localhost:4200/";
+        const url = "http://122.117.246.47:4200/";
         this.SendRequest(url + "CurrentWeather", this.ParseCurrentWeather, this.AlertError);
 		this.SendRequest(url + "DayWeather", this.ParseDayWeather, this.AlertError);
 		this.SendRequest(url + "WeekWeather", this.ParseWeekWeather, this.AlertError);
