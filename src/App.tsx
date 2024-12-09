@@ -33,13 +33,22 @@ function App() {
 		}
 	}
 
+	// Force update if left the browser tab for more than 10 minutes
+	window.onfocus = () => {
+		if (Date.now() - lastCheckTime > 10 * 60 * 1000)
+		{
+			host.RequestWeatherData();
+			lastCheckTime = Date.now();
+		}
+	}
+
 	useEffect(() => {
 	}, [
 		host.weatherCardCurrent,
 		host.weatherCardDay,
 		host.weatherCardWeek,
 	]);
-
+	
   	return (
     <>
 		<div className="container">
