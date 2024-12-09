@@ -14,7 +14,7 @@ function App() {
 	//  Initialize controller once
 	useEffect(() => {
 		host.Initialize();
-		setInterval(CheckTime, 100);
+		setInterval(CheckTime, 500);
 	}, []);
 
 	// Request weather data on every multiple of 10 minute + 10 seconds 

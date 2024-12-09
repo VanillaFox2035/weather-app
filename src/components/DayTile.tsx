@@ -5,6 +5,7 @@ import { WeatherType } from "./WeatherIcon";
 
 export interface IDayWeatherCard
 {
+    key: string;
     title: string;
     tempMain: number;
     weather: WeatherType;
@@ -13,6 +14,7 @@ export interface IDayWeatherCard
 
 export const defaultCard: IDayWeatherCard = 
 {
+    key: "day-tile-0 " + Date().toString(),
     title: "06:00",
 	tempMain: 0,
 	weather: WeatherType.Clear,
@@ -27,10 +29,12 @@ interface IDayTile
 export default function DayTile(props: IDayTile)
 {
     const [weatherCards, setWeatherCards] = useState([defaultCard]);
+    const [key, setKey] = useState(defaultCard.key);
     useEffect(() => {
         // Update every 0.1 seconds
         const interval = setInterval(() => {
             setWeatherCards(props.weatherCards);
+            setKey(props.weatherCards[0].key);
         }, 100);
         return () => 
         {
@@ -39,10 +43,10 @@ export default function DayTile(props: IDayTile)
     }, [props])
 
     return (
-        <div className="forecast-tile">
+        <div className="forecast-tile" key={key}>
             {
-                weatherCards.map((value, index) => 
-                    <WeatherCard key={"day-tile-" + index.toString()} title={value.title} weather={value.weather} isNight={value.isNight} tempMain={value.tempMain}/>)
+                weatherCards.map((value) => 
+                    <WeatherCard key={value.key} title={value.title} weather={value.weather} isNight={value.isNight} tempMain={value.tempMain}/>)
             }
         </div>
     );

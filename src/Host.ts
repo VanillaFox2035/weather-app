@@ -88,6 +88,7 @@ export default class Host
 		}
 		for (let i = 0; i < cardCount; i++)
 		{
+			host.weatherCardDay[i].key = "day-tile-" + i.toString() + " " + Date().toString();
 			const weatherIndex = i + skip;
 			const time: string = weatherArray[weatherIndex].startTime;
 			const title: string = time.substring(11, 16);
@@ -135,6 +136,7 @@ export default class Host
 		}
 		for (let i = 0; i < cardCount; i++)
 		{
+			host.weatherCardWeek[i].key = "week-tile-" + i.toString() + " " + Date().toString();
 			const weatherIndex = i * 2 + skip;
 			const time: string = weatherArray[weatherIndex + 0].startTime;
 			let title: string = "Tomorrow";

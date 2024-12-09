@@ -5,6 +5,7 @@ import { WeatherType } from "./WeatherIcon";
 
 export interface IWeekWeatherCard
 {
+    key: string;
     title: string;
     tempMain: number;
     tempSub: number;
@@ -13,6 +14,7 @@ export interface IWeekWeatherCard
 
 export const defaultCard: IWeekWeatherCard = 
 {
+    key: "week-tile-0 " + Date().toString(),
     title: "Sun",
 	tempMain: 0,
 	tempSub: 0,
@@ -27,9 +29,11 @@ interface IWeekTile
 export default function WeekTile(props: IWeekTile)
 {
     const [weatherCards, setWeatherCards] = useState([defaultCard]);
+    const [key, setKey] = useState(defaultCard.key);
     useEffect(() => {
         const interval = setInterval(() => {
             setWeatherCards(props.weatherCards);
+            setKey(props.weatherCards[0].key);
         }, 100);
         return () => 
         {
@@ -38,10 +42,10 @@ export default function WeekTile(props: IWeekTile)
     }, [props])
 
     return (
-        <div className="forecast-tile">
+        <div className="forecast-tile" key={key}>
             {
-                weatherCards.map((value, index) => 
-                <WeatherCard key={"week-tile-" + index.toString()} title={value.title} weather={value.weather} tempMain={value.tempMain} tempSub={value.tempSub}/>)
+                weatherCards.map((value) => 
+                <WeatherCard key={value.key} title={value.title} weather={value.weather} tempMain={value.tempMain} tempSub={value.tempSub}/>)
             }
         </div>
     );
