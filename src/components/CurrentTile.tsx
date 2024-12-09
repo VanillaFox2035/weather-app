@@ -97,6 +97,15 @@ export default function CurrentTile(props: ICurrentTile)
         return result;
     }
 
+    function CheckNotAvailable(input :number): string
+	{
+		if (input === -99)
+		{
+			return "N/A";
+		}
+		return input.toString();
+	}
+
     return (
         <>
         <div className="last-updated-time">Last updated: {weatherCard.lastUpdated}</div>
@@ -118,9 +127,9 @@ export default function CurrentTile(props: ICurrentTile)
             </div>
             <div className="right-block">
                 <WeatherIcon weather={weatherCard.weather} isNight={weatherCard.isNight} width="150px"/> 
-                <h1 className="current-temperature">{weatherCard.temperature}°</h1>
-                <h4 className="weather-detail">Precipitation: {weatherCard.precipitation}%</h4>
-                <h4 className="weather-detail">Humidity: {weatherCard.humidity}%</h4>
+                <h1 className="current-temperature">{CheckNotAvailable(weatherCard.temperature)}°</h1>
+                <h4 className="weather-detail">Precipitation: {CheckNotAvailable(weatherCard.precipitation)}%</h4>
+                <h4 className="weather-detail">Humidity: {CheckNotAvailable(weatherCard.humidity)}%</h4>
             </div>
         </div>
         </>
