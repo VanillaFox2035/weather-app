@@ -14,7 +14,7 @@ export interface IDayWeatherCard
 
 export const defaultCard: IDayWeatherCard = 
 {
-    key: "day-tile-0 " + Date().toString(),
+    key: "day-tile-0 ",
     title: "06:00",
 	tempMain: 0,
 	weather: WeatherType.Clear,

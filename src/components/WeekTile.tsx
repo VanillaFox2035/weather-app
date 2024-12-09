@@ -14,7 +14,7 @@ export interface IWeekWeatherCard
 
 export const defaultCard: IWeekWeatherCard = 
 {
-    key: "week-tile-0 " + Date().toString(),
+    key: "week-tile-0 ",
     title: "Sun",
 	tempMain: 0,
 	tempSub: 0,
