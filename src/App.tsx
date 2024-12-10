@@ -33,13 +33,21 @@ function App() {
 		}
 	}
 
-	// Force update if left the browser tab for more than 10 minutes
+	// Force update if left the browser tab for more than 1 minute
 	window.onfocus = () => {
-		if (Date.now() - lastCheckTime > 10 * 60 * 1000)
+		if (Date.now() - lastCheckTime > 60 * 1000)
 		{
 			host.RequestWeatherData();
 			lastCheckTime = Date.now();
 		}
+		else
+		{
+			console.log("Update time not enough");
+		}
+	}
+
+	window.onblur = () => {
+		
 	}
 
 	useEffect(() => {
