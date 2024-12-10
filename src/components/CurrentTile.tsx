@@ -110,27 +110,30 @@ export default function CurrentTile(props: ICurrentTile)
         <>
         <div className="last-updated-time">Last updated: {weatherCard.lastUpdated}</div>
         <div className="current-tile">
-            <div className="left-block">
-                <div className="flex-block">
-                    <img width="18px" src="/location.svg"/>
-                    <h2 className="location-text">{weatherCard.location}</h2>
-                    <h2 className="location-text-sub">{weatherCard.locationSub}</h2>
-                </div>
+            <div className="current-tile-content">
+                <div className="left-block">
+                    <div className="flex-block">
+                        <img width="18px" src="/location.svg"/>
+                        <h2 className="location-text">{weatherCard.location}</h2>
+                        <h2 className="location-text-sub">{weatherCard.locationSub}</h2>
+                    </div>
 
-                <div className="flex-block">
-                    <h1 className="current-time">{time}</h1>
-                    <h2 className="current-time-second">{timeSecond}</h2>
-                </div>
+                    <div className="flex-block">
+                        <h1 className="current-time">{time}</h1>
+                        <h2 className="current-time-second">{timeSecond}</h2>
+                    </div>
 
-                <h4 className="current-date">{date}</h4>
-                
+                    <h4 className="current-date">{date}</h4>
+
+                </div>
+                <div className="right-block">
+                    <WeatherIcon weather={weatherCard.weather} isNight={weatherCard.isNight} width="150px"/> 
+                    <h1 className="current-temperature">{CheckNotAvailable(weatherCard.temperature)}°</h1>
+                    <h4 className="weather-detail">Precipitation: {CheckNotAvailable(weatherCard.precipitation)}%</h4>
+                    <h4 className="weather-detail">Humidity: {CheckNotAvailable(weatherCard.humidity)}%</h4>
+                </div>
             </div>
-            <div className="right-block">
-                <WeatherIcon weather={weatherCard.weather} isNight={weatherCard.isNight} width="150px"/> 
-                <h1 className="current-temperature">{CheckNotAvailable(weatherCard.temperature)}°</h1>
-                <h4 className="weather-detail">Precipitation: {CheckNotAvailable(weatherCard.precipitation)}%</h4>
-                <h4 className="weather-detail">Humidity: {CheckNotAvailable(weatherCard.humidity)}%</h4>
-            </div>
+            <div className="current-tile-matte"></div>
         </div>
         </>
     );

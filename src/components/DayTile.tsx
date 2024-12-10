@@ -44,10 +44,13 @@ export default function DayTile(props: IDayTile)
 
     return (
         <div className="forecast-tile" key={key}>
+            <div className="weather-card-tile">
             {
                 weatherCards.map((value) => 
                     <WeatherCard key={value.key} title={value.title} weather={value.weather} isNight={value.isNight} tempMain={value.tempMain}/>)
             }
+            </div>
+            <div className="matte-tile"></div>
         </div>
     );
 }
