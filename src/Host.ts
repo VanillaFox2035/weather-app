@@ -61,17 +61,17 @@ export default class Host
 	private ParseDayWeather(data: any)
 	{
 		// Parse data
-		const stationData = data.records.locations[0].location[0];
-		const weatherData = stationData.weatherElement;
+		const stationData = data.records.Locations[0].Location[0];
+		const weatherData = stationData.WeatherElement;
 
-		const weatherArray = weatherData[1].time;
-		const temperatureArray = weatherData[3].time;
+		const weatherArray = weatherData[8].Time;
+		const temperatureArray = weatherData[0].Time;
 
 		// Skip previous data
 		let skip = 0;
 		for (let i = 0; i < weatherArray.length; i++)
 		{
-			const time: string = weatherArray[i].startTime;
+			const time: string = weatherArray[i].StartTime;
 			const date = host.GetDate(time);
 			if (date >= Date.now())
 			{
@@ -90,11 +90,11 @@ export default class Host
 		{
 			host.weatherCardDay[i].key = "day-tile-" + i.toString() + " " + Date().toString();
 			const weatherIndex = i + skip;
-			const time: string = weatherArray[weatherIndex].startTime;
+			const time: string = weatherArray[weatherIndex].StartTime;
 			const title: string = time.substring(11, 16);
 			const hour: number = Number(title.substring(0, 2));
-			const weather = weatherArray[weatherIndex].elementValue[0].value;
-			const temperature = temperatureArray[weatherIndex].elementValue[0].value;
+			const weather = weatherArray[weatherIndex].ElementValue[0].Weather;
+			const temperature = temperatureArray[weatherIndex].ElementValue[0].Temperature;
 			host.weatherCardDay[i].title = title;
 			host.weatherCardDay[i].weather = host.TranslateWeather(weather);
 			host.weatherCardDay[i].isNight = host.GetIsNight(hour);
@@ -105,17 +105,17 @@ export default class Host
 	private ParseWeekWeather(data: any)
 	{
 		// Parse data
-		const stationData = data.records.locations[0].location[0];
-		const weatherData = stationData.weatherElement;
-		const weatherArray = weatherData[6].time;
-		const tempMaxArray = weatherData[12].time;
-		const tempMinArray = weatherData[8].time;
+		const stationData = data.records.Locations[0].Location[0];
+		const weatherData = stationData.WeatherElement;
+		const weatherArray = weatherData[12].Time;
+		const tempMaxArray = weatherData[1].Time;
+		const tempMinArray = weatherData[2].Time;
 
 		// Skip today's data
 		let skip = 0;
 		for (let i = 0; i < weatherArray.length; i++)
 		{
-			const time: string = weatherArray[i].startTime;
+			const time: string = weatherArray[i].StartTime;
 			const date: number = host.GetDate(time);
 			const compareString = 	new Date().getFullYear().toString() + "-" +
 									host.PadNumber((new Date().getMonth() + 1).toString(), 2) + "-" +
@@ -138,7 +138,7 @@ export default class Host
 		{
 			host.weatherCardWeek[i].key = "week-tile-" + i.toString() + " " + Date().toString();
 			const weatherIndex = i * 2 + skip;
-			const time: string = weatherArray[weatherIndex + 0].startTime;
+			const time: string = weatherArray[weatherIndex + 0].StartTime;
 			let title: string = "Tomorrow";
 			if (i > 0)
 			{
@@ -146,14 +146,14 @@ export default class Host
 				title = DAYS[day];
 			}
 			host.weatherCardWeek[i].title = title;
-			const weatherDay   = weatherArray[weatherIndex + 0].elementValue[0].value;
-			const tempMaxDay   = tempMaxArray[weatherIndex + 0].elementValue[0].value;
-			const tempMinDay   = tempMinArray[weatherIndex + 0].elementValue[0].value;
+			const weatherDay   = weatherArray[weatherIndex + 0].ElementValue[0].Weather;
+			const tempMaxDay   = tempMaxArray[weatherIndex + 0].ElementValue[0].MaxTemperature;
+			const tempMinDay   = tempMinArray[weatherIndex + 0].ElementValue[0].MinTemperature;
 			if (weatherIndex + 1 < weatherArray.length)
 			{
 				//const weatherNight = weatherArray[weatherIndex + 1].elementValue[0].value;
-				const tempMaxNight = tempMaxArray[weatherIndex + 1].elementValue[0].value;
-				const tempMinNight = tempMinArray[weatherIndex + 1].elementValue[0].value;
+				const tempMaxNight = tempMaxArray[weatherIndex + 1].ElementValue[0].MaxTemperature;
+				const tempMinNight = tempMinArray[weatherIndex + 1].ElementValue[0].MinTemperature;
 				host.weatherCardWeek[i].weather = host.TranslateWeather(weatherDay);
 				host.weatherCardWeek[i].tempMain = Math.max(tempMaxDay, tempMaxNight);
 				host.weatherCardWeek[i].tempSub = Math.min(tempMinDay, tempMinNight);
