@@ -74,8 +74,8 @@ export default class Host
 		const lastUpdatedMinute = host.PadNumber(new Date(lastUpdatedTime).getMinutes().toString(), 2);
 
 		// Render fields
-		host.weatherCardCurrent.location = "新莊"; // Locked for now
-		host.weatherCardCurrent.locationSub = "Xinzhuang"; // Locked for now
+		host.weatherCardCurrent.location = host.currentLocation;
+		host.weatherCardCurrent.locationSub = ""; // Locked for now
 		host.weatherCardCurrent.weather = host.TranslateWeather(weatherData.Weather);
 		host.weatherCardCurrent.isNight = host.GetIsNight(new Date().getHours());
 		host.weatherCardCurrent.temperature = Math.round(weatherData.AirTemperature);
