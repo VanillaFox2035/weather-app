@@ -32,7 +32,7 @@ export default class Host
     public RequestWeatherData()
     {
 		console.log(`Requested weather data at ${this.GetDateString()}`);
-        const url = "http://122.117.246.47:4200/";
+        const url = "http://localhost:4200/"; //"http://122.117.246.47:4200/";
         this.SendRequest(url + "CurrentWeather", this.ParseCurrentWeather, this.AlertError);
 		this.SendRequest(url + "DayWeather", this.ParseDayWeather, this.AlertError);
 		this.SendRequest(url + "WeekWeather", this.ParseWeekWeather, this.AlertError);
@@ -81,10 +81,15 @@ export default class Host
 		}
 
 		// Render fields
-		const cardCount = 6;
-		while (host.weatherCardDay.length < cardCount)
+		const maxCardCount = 6;
+		const cardCount = Math.min(weatherArray.length - skip, maxCardCount);
+		if (host.weatherCardDay.length !== cardCount)
 		{
-			host.weatherCardDay.push({...defaultCardDay}); // Deep copy
+			host.weatherCardDay = [{...defaultCardDay}];
+			while (host.weatherCardDay.length < cardCount)
+			{
+				host.weatherCardDay.push({...defaultCardDay}); // Deep copy
+			}
 		}
 		for (let i = 0; i < cardCount; i++)
 		{
@@ -129,10 +134,15 @@ export default class Host
 		}
 
 		// Render fields
-		const cardCount = 6;
-		while (host.weatherCardWeek.length < cardCount)
+		const maxCardCount = 6;
+		const cardCount = Math.min(Math.floor((weatherArray.length - skip) / 2), maxCardCount);
+		if (host.weatherCardWeek.length !== cardCount)
 		{
-			host.weatherCardWeek.push({...defaultCardWeek}); // Deep copy
+			host.weatherCardWeek = [{...defaultCardWeek}];
+			while (host.weatherCardWeek.length < cardCount)
+			{
+				host.weatherCardWeek.push({...defaultCardWeek}); // Deep copy
+			}
 		}
 		for (let i = 0; i < cardCount; i++)
 		{
@@ -177,6 +187,7 @@ export default class Host
 		let data = {};
 		try
 		{
+			console.log("send request");
 			const response = await fetch(url);
 			if (!response.ok)
 			{
