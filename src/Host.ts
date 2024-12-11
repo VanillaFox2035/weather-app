@@ -13,6 +13,8 @@ export default class Host
     public weatherCardCurrent: ICurrentWeatherCard = {...defaultCardCurrent}; // Deep copy
     public weatherCardDay: IDayWeatherCard[] = [{...defaultCardDay}]; 
     public weatherCardWeek: IWeekWeatherCard[] = [{...defaultCardWeek}]; 
+	public currentLocation: string = "新莊";
+	public locationList: any = {};
 
     constructor()
     {
@@ -27,6 +29,7 @@ export default class Host
 		}
 		this.isInitialized = true;
         this.RequestWeatherData();
+		this.RequestLocationData();
     }
 
     public RequestWeatherData()
@@ -37,6 +40,29 @@ export default class Host
 		this.SendRequest(url + "DayWeather", this.ParseDayWeather, this.AlertError);
 		this.SendRequest(url + "WeekWeather", this.ParseWeekWeather, this.AlertError);
     }
+
+	public RequestLocationData()
+	{
+		console.log(`Requested location data at ${this.GetDateString()}`);
+        const url = "http://122.117.246.47:4200/";
+		this.SendRequest(url + "LocationList", this.SaveLocationData, this.AlertError);
+		const query = window.location.search;
+		const params = new URLSearchParams(query);
+		let location = params.get("location");
+		if (location)
+		{
+			this.currentLocation = location;
+		}
+		else
+		{
+			this.currentLocation = "新莊"; // Default when no location given
+		}
+	}
+	
+	private SaveLocationData(data: any)
+	{
+		host.locationList = data;
+	}
 
 	private ParseCurrentWeather(data: any)
 	{
@@ -184,17 +210,10 @@ export default class Host
 
 	private async SendRequest(url: string, resolve: (data: object) => void, reject: (error: string) => void)
 	{
-		const query = window.location.search;
-		const params = new URLSearchParams(query);
-		let location = params.get("location");
-		if (!location)
-		{
-			location = "新莊"; // Default when no location given
-		}
 		let data = {};
 		try
 		{
-			const response = await fetch(url + "?location=" + location);
+			const response = await fetch(url + "?location=" + this.currentLocation);
 			if (!response.ok)
 			{
 				reject(`Response status: ${response.status}`);
