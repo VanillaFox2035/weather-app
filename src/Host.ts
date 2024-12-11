@@ -28,8 +28,8 @@ export default class Host
 			return;
 		}
 		this.isInitialized = true;
-        this.RequestWeatherData();
 		this.RequestLocationData();
+        this.RequestWeatherData();
     }
 
     public RequestWeatherData()
@@ -213,7 +213,7 @@ export default class Host
 		let data = {};
 		try
 		{
-			const response = await fetch(url + "?location=" + this.currentLocation);
+			const response = await fetch(url + "?location=" + host.currentLocation);
 			if (!response.ok)
 			{
 				reject(`Response status: ${response.status}`);
