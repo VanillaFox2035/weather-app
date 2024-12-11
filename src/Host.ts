@@ -184,10 +184,17 @@ export default class Host
 
 	private async SendRequest(url: string, resolve: (data: object) => void, reject: (error: string) => void)
 	{
+		const query = window.location.search;
+		const params = new URLSearchParams(query);
+		let location = params.get("location");
+		if (!location)
+		{
+			location = "新莊"; // Default when no location given
+		}
 		let data = {};
 		try
 		{
-			const response = await fetch(url + "?location=新莊");
+			const response = await fetch(url + "?location=" + location);
 			if (!response.ok)
 			{
 				reject(`Response status: ${response.status}`);
