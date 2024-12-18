@@ -53,6 +53,32 @@ export default function WeatherIcon(props: IWeatherIcon)
         setWeather(props.weather);
     }, [props]);
 
+    function IsMobile(): boolean
+    {
+        let result = false;
+        const mobileWidthThresh = 600; // px
+        if (window.innerWidth <= mobileWidthThresh)
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    function GetIconWidth(): number
+    {
+        let result = 50; //px
+        if (props.width)
+        {
+            result = Number(props.width);
+        }
+        if (IsMobile())
+        {
+            // Mobile
+            result /= 2;
+        }
+        return result;
+    }
+
     function GetIconPath(weather: WeatherType): string
     {
         const dir = "/WeatherIcons/Google/";
@@ -154,6 +180,6 @@ export default function WeatherIcon(props: IWeatherIcon)
     }
 
     return (
-        <img className="weather-icon" width={props.width? props.width : "50px"} src={GetIconPath(weather)}/>
+        <img className="weather-icon" width={GetIconWidth()} src={GetIconPath(weather)}/>
     );
 }
