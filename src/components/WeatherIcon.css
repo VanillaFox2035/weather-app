@@ -3,3 +3,12 @@
     margin: 0em;
     width:"50px";
 }
+
+@media only screen and (max-width: 600px)
+{
+    .weather-icon
+    {
+        margin: 0em;
+        width:"25px";
+    }
+}
