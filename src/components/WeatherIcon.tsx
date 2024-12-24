@@ -56,7 +56,7 @@ export default function WeatherIcon(props: IWeatherIcon)
     function GetIconPath(weather: WeatherType): string
     {
         const dir = "/WeatherIcons/Google/";
-        let file = "x-symbol";
+        let file = "question-mark";
         switch (weather)
         {
             case WeatherType.Clear:
@@ -147,7 +147,7 @@ export default function WeatherIcon(props: IWeatherIcon)
                 file = "General/umbrella";
                 break;
             default:
-                file = "x-symbol";
+                file = "question-mark";
                 break;
         }
         return dir + file + ".svg";
