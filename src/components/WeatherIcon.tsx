@@ -56,7 +56,7 @@ export default function WeatherIcon(props: IWeatherIcon)
     function IsMobile(): boolean
     {
         let result = false;
-        const mobileWidthThresh = 600; // px
+        const mobileWidthThresh = 800; // px
         if (window.innerWidth <= mobileWidthThresh)
         {
             result = true;
