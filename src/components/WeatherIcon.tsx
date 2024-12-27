@@ -69,7 +69,10 @@ export default function WeatherIcon(props: IWeatherIcon)
         let result = 50; //px
         if (props.width)
         {
-            result = Number(props.width);
+            if (!isNaN(Number(props.width)))
+            {
+                result = Number(props.width);
+            }
         }
         if (IsMobile())
         {
