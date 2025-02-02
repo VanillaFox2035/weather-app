@@ -77,6 +77,7 @@ export default class Host
 		host.weatherCardCurrent.location = host.currentLocation;
 		host.weatherCardCurrent.locationSub = ""; // Locked for now
 		host.weatherCardCurrent.weather = host.TranslateWeather(weatherData.Weather);
+		host.weatherCardCurrent.weatherString = weatherData.Weather;
 		host.weatherCardCurrent.isNight = host.GetIsNight(new Date().getHours());
 		host.weatherCardCurrent.temperature = Math.round(weatherData.AirTemperature);
 		host.weatherCardCurrent.precipitation = weatherData.Now.Precipitation;

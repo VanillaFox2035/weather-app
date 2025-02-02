@@ -9,6 +9,7 @@ export interface ICurrentWeatherCard
     location: string;
     locationSub?: string;
     weather: WeatherType;
+    weatherString: string;
     isNight: boolean;
     temperature: number;
     precipitation: number;
@@ -21,6 +22,7 @@ export const defaultCard: ICurrentWeatherCard =
     location: "新莊",
     locationSub: "Xinzhuang",
     weather: WeatherType.Clear,
+    weatherString: "晴",
     isNight: false,
     temperature: 0,
     precipitation: 0,
@@ -127,9 +129,9 @@ export default function CurrentTile(props: ICurrentTile)
 
                 </div>
                 <div className="right-block">
-                    <WeatherIcon weather={weatherCard.weather} isNight={weatherCard.isNight} width="150px"/> 
+                    <WeatherIcon weather={weatherCard.weather} isNight={weatherCard.isNight} width="150px" title={weatherCard.weatherString}/> 
                     <h1 className="current-temperature">{CheckNotAvailable(weatherCard.temperature)}°</h1>
-                    <h4 className="weather-detail">Precipitation: {CheckNotAvailable(weatherCard.precipitation)}%</h4>
+                    <h4 className="weather-detail">Precipitation: {CheckNotAvailable(weatherCard.precipitation * 100)}%</h4>
                     <h4 className="weather-detail">Humidity: {CheckNotAvailable(weatherCard.humidity)}%</h4>
                 </div>
             </div>

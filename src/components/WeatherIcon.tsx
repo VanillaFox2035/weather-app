@@ -43,6 +43,7 @@ interface IWeatherIcon
     weather: WeatherType;
     width?: string;
     isNight?: boolean;
+    title?: string;
 }
 
 export default function WeatherIcon(props: IWeatherIcon)
@@ -154,6 +155,6 @@ export default function WeatherIcon(props: IWeatherIcon)
     }
 
     return (
-        <img className="weather-icon" width={props.width? props.width : "50px"} src={GetIconPath(weather)}/>
+        <img className="weather-icon" width={props.width? props.width : "50px"} src={GetIconPath(weather)} title={props.title}/>
     );
 }
