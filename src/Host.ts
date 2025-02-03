@@ -125,10 +125,11 @@ export default class Host
 			const time: string = weatherArray[weatherIndex].StartTime;
 			const title: string = time.substring(11, 16);
 			const hour: number = Number(title.substring(0, 2));
-			const weather = weatherArray[weatherIndex].ElementValue[0].Weather;
+			const weather: string = weatherArray[weatherIndex].ElementValue[0].Weather;
 			const temperature = temperatureArray[weatherIndex].ElementValue[0].Temperature;
 			host.weatherCardDay[i].title = title;
 			host.weatherCardDay[i].weather = host.TranslateWeather(weather);
+			host.weatherCardDay[i].weatherString = weather;
 			host.weatherCardDay[i].isNight = host.GetIsNight(hour);
 			host.weatherCardDay[i].tempMain = temperature;
 		}
@@ -192,12 +193,14 @@ export default class Host
 				const tempMaxNight = tempMaxArray[weatherIndex + 1].ElementValue[0].MaxTemperature;
 				const tempMinNight = tempMinArray[weatherIndex + 1].ElementValue[0].MinTemperature;
 				host.weatherCardWeek[i].weather = host.TranslateWeather(weatherDay);
+				host.weatherCardWeek[i].weatherString = weatherDay;
 				host.weatherCardWeek[i].tempMain = Math.max(tempMaxDay, tempMaxNight);
 				host.weatherCardWeek[i].tempSub = Math.min(tempMinDay, tempMinNight);
 			}
 			else
 			{
 				host.weatherCardWeek[i].weather = host.TranslateWeather(weatherDay);
+				host.weatherCardWeek[i].weatherString = weatherDay;
 				host.weatherCardWeek[i].tempMain = tempMaxDay;
 				host.weatherCardWeek[i].tempSub = tempMinDay;
 			}

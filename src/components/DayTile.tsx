@@ -9,6 +9,7 @@ export interface IDayWeatherCard
     title: string;
     tempMain: number;
     weather: WeatherType;
+    weatherString: string;
     isNight: boolean;
 }
 
@@ -18,6 +19,7 @@ export const defaultCard: IDayWeatherCard =
     title: "06:00",
 	tempMain: 0,
 	weather: WeatherType.Clear,
+    weatherString: "晴",
 	isNight: false
 }
 
@@ -47,7 +49,7 @@ export default function DayTile(props: IDayTile)
             <div className="weather-card-tile">
             {
                 weatherCards.map((value) => 
-                    <WeatherCard key={value.key} title={value.title} weather={value.weather} isNight={value.isNight} tempMain={value.tempMain}/>)
+                    <WeatherCard key={value.key} title={value.title} weather={value.weather} weatherString={value.weatherString} isNight={value.isNight} tempMain={value.tempMain}/>)
             }
             </div>
             <div className="matte-tile"></div>

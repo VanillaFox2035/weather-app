@@ -9,6 +9,7 @@ export interface IWeatherCard
     title: string;
     isNight?: boolean;
     weather: WeatherType;
+    weatherString?: string;
     tempMain: number;
     tempSub?: number;
 }
@@ -52,7 +53,7 @@ export default function WeatherCard(props: IWeatherCard)
     <div className="weather-card">
         <h4 className="forecast-title">{title}</h4>
         <div className="spacing"></div>
-        <WeatherIcon weather={weather} isNight={isNight}/>
+        <WeatherIcon weather={weather} isNight={isNight} title={props.weatherString}/>
         <div className="spacing"></div>
         {
             props.tempSub? 

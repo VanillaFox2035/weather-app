@@ -10,6 +10,7 @@ export interface IWeekWeatherCard
     tempMain: number;
     tempSub: number;
     weather: WeatherType;
+    weatherString: string;
 }
 
 export const defaultCard: IWeekWeatherCard = 
@@ -18,7 +19,8 @@ export const defaultCard: IWeekWeatherCard =
     title: "Sun",
 	tempMain: 0,
 	tempSub: 0,
-	weather: WeatherType.Clear
+	weather: WeatherType.Clear,
+    weatherString: "晴",
 }
 
 interface IWeekTile
@@ -48,7 +50,7 @@ export default function WeekTile(props: IWeekTile)
             <div className="weather-card-tile">
             {
                 weatherCards.map((value) => 
-                <WeatherCard key={value.key} title={value.title} weather={value.weather} tempMain={value.tempMain} tempSub={value.tempSub}/>)
+                <WeatherCard key={value.key} title={value.title} weather={value.weather} weatherString={value.weatherString} tempMain={value.tempMain} tempSub={value.tempSub}/>)
             }
             </div>
             <div className="matte-tile"></div>
