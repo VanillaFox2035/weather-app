@@ -131,7 +131,7 @@ export default function CurrentTile(props: ICurrentTile)
                 <div className="right-block">
                     <WeatherIcon weather={weatherCard.weather} isNight={weatherCard.isNight} width="150px" title={weatherCard.weatherString}/> 
                     <h1 className="current-temperature">{CheckNotAvailable(weatherCard.temperature)}°</h1>
-                    <h4 className="weather-detail">Precipitation: {CheckNotAvailable(weatherCard.precipitation * 10)}%</h4>
+                    {/*<h4 className="weather-detail">Precipitation: {CheckNotAvailable(weatherCard.precipitation * 10)}%</h4>*/}
                     <h4 className="weather-detail">Humidity: {CheckNotAvailable(weatherCard.humidity)}%</h4>
                 </div>
             </div>
