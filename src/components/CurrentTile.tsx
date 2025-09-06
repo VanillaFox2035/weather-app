@@ -19,7 +19,7 @@ export interface ICurrentWeatherCard
 export const defaultCard: ICurrentWeatherCard = 
 {
     lastUpdated: "00:00",
-    location: "新莊",
+    location: "名間",
     locationSub: "Xinzhuang",
     weather: WeatherType.Clear,
     weatherString: "晴",
