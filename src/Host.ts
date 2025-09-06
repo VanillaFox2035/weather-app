@@ -13,13 +13,14 @@ export default class Host
     public weatherCardCurrent: ICurrentWeatherCard = {...defaultCardCurrent}; // Deep copy
     public weatherCardDay: IDayWeatherCard[] = [{...defaultCardDay}]; 
     public weatherCardWeek: IWeekWeatherCard[] = [{...defaultCardWeek}]; 
-	public currentLocation: string = "新莊";
+	public currentLocation: string = "名間";
 	public locationList: any = {};
 
     constructor()
     {
-
+		
     }
+
 
     public Initialize()
     {
