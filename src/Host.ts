@@ -56,7 +56,7 @@ export default class Host
 		}
 		else
 		{
-			this.currentLocation = "新莊"; // Default when no location given
+			this.currentLocation = "名間"; // Default when no location given
 		}
 	}
 	
