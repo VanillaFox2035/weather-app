@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import { useState, useEffect } from 'react'
+import './App.css';
 import CurrentTile from "./components/CurrentTile";
 import DayTile from "./components/DayTile";
 import WeekTile from "./components/WeekTile";
@@ -8,12 +8,17 @@ import Host from "./Host";
 export const host: Host = new Host();
 
 function App() {
-	
+  	const [width, setWidth] = useState<number>(window.innerWidth);
+	function onWindowSizeChange() {
+		setWidth(window.innerWidth);
+	}
+
 	let lastCheckTime: number = Date.now();
 	const [key, setKey] = useState("app");
 
 	//  Initialize controller once
 	useEffect(() => {
+		window.addEventListener('resize', onWindowSizeChange);
 		host.Initialize();
 		setInterval(CheckTime, 100);
 	}, []);
@@ -61,15 +66,15 @@ function App() {
 	
   	return (
     <>
-		<div className="container" key={key}>
-			<CurrentTile weatherCard={host.weatherCardCurrent}/>
-			<DayTile weatherCards={host.weatherCardDay}/>
-			<WeekTile weatherCards={host.weatherCardWeek}/>
+      <div className="container" key={key}>
+			<CurrentTile weatherCard={host.weatherCardCurrent} width={width}/>
+			<DayTile weatherCards={host.weatherCardDay} width={width}/>
+			<WeekTile weatherCards={host.weatherCardWeek} width={width}/>
 			<br/>
 			<div className="credit">Designed and coded by VanillaFox2035</div>
-		</div>
+		  </div>
     </>
   	);
 }
 
-export default App;
+export default App

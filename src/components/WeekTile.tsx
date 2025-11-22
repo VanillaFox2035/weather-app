@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./ForecastTile.css";
+//import "./ForecastTile.css";
 import WeatherCard from "./WeatherCard";
 import { WeatherType } from "./WeatherIcon";
 
@@ -25,7 +25,8 @@ export const defaultCard: IWeekWeatherCard =
 
 interface IWeekTile
 {
-    weatherCards: IWeekWeatherCard[]
+    weatherCards: IWeekWeatherCard[];
+    width: number;
 }
 
 export default function WeekTile(props: IWeekTile)

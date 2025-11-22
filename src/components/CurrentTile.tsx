@@ -32,6 +32,7 @@ export const defaultCard: ICurrentWeatherCard =
 interface ICurrentTile
 {    
     weatherCard: ICurrentWeatherCard;
+    width: number;
 }
 
 export default function CurrentTile(props: ICurrentTile)

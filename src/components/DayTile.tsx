@@ -25,7 +25,8 @@ export const defaultCard: IDayWeatherCard =
 
 interface IDayTile
 {
-    weatherCards: IDayWeatherCard[]
+    weatherCards: IDayWeatherCard[];
+    width: number;
 }
 
 export default function DayTile(props: IDayTile)
