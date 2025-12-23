@@ -20,7 +20,7 @@ export const defaultCard: ICurrentWeatherCard =
 {
     lastUpdated: "00:00",
     location: "名間",
-    locationSub: "Xinzhuang",
+    locationSub: "Mingjian",
     weather: WeatherType.Clear,
     weatherString: "晴",
     isNight: false,
@@ -44,6 +44,7 @@ export default function CurrentTile(props: ICurrentTile)
     const [time, setTime] = useState("00:00");
     const [timeSecond, setTimeSecond] = useState("00");
     const [date, setDate] = useState("Sunday");
+    const isMobile = props.width <= 800;
 
     function SetTimeTile()
     {
@@ -111,12 +112,45 @@ export default function CurrentTile(props: ICurrentTile)
 
     return (
         <>
-        <div className="last-updated-time">Last updated: {weatherCard.lastUpdated}</div>
-        <div className="current-tile">
+        {
+            isMobile ? 
+            // Mobile site
+            <>
+            <div className="last-updated-time">Last updated: {weatherCard.lastUpdated}</div>
+            <div className="current-tile">
             <div className="current-tile-content">
                 <div className="left-block">
                     <div className="flex-block">
-                        <img width="18px" src="/location.svg"/>
+                        <WeatherIcon weather={weatherCard.weather} isNight={weatherCard.isNight} width={(props.width / 4).toString() + "px"} title={weatherCard.weatherString}/> 
+                    </div>
+
+                </div>
+                <div className="right-block">
+                    <div className="flex-block">
+                        <img width="18px" src={import.meta.env.BASE_URL + "/location.svg"}/>
+                        <h2 className="location-text">{weatherCard.location}</h2>
+                        <h2 className="location-text-sub">{weatherCard.locationSub}</h2>                              
+                    </div>           
+                    <div className="flex-block">
+                        <h1 className="current-temperature">{CheckNotAvailable(weatherCard.temperature)}°</h1>
+                    </div>
+                    <div className="flex-block">
+                        <h4 className="weather-detail">Humidity: {CheckNotAvailable(weatherCard.humidity)}%</h4>
+                    </div>
+                </div>
+            </div>
+            <div className="current-tile-matte"></div>
+            </div>
+            </>
+            :
+            // Desktopn site
+            <>
+            <div className="last-updated-time">Last updated: {weatherCard.lastUpdated}</div>
+            <div className="current-tile">
+            <div className="current-tile-content">
+                <div className="left-block">
+                    <div className="flex-block">
+                        <img width="18px" src={import.meta.env.BASE_URL + "/location.svg"}/>
                         <h2 className="location-text">{weatherCard.location}</h2>
                         <h2 className="location-text-sub">{weatherCard.locationSub}</h2>
                     </div>
@@ -137,7 +171,9 @@ export default function CurrentTile(props: ICurrentTile)
                 </div>
             </div>
             <div className="current-tile-matte"></div>
-        </div>
+            </div>
+            </>
+        }
         </>
     );
 }
