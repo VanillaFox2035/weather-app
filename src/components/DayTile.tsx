@@ -51,8 +51,8 @@ export default function DayTile(props: IDayTile)
             <div className="weather-card-tile">
             {
                 isMobile?
-                <>
-                </>
+                weatherCards.map((value, index) => 
+                    (index < 3 || index <= (props.width - 200)/ 95) && <WeatherCard key={value.key} title={value.title} weather={value.weather} weatherString={value.weatherString} isNight={value.isNight} tempMain={value.tempMain}/>)
                 :
                 weatherCards.map((value, index) => 
                     (index < 3 || index <= (props.width - 200)/ 95) && <WeatherCard key={value.key} title={value.title} weather={value.weather} weatherString={value.weatherString} isNight={value.isNight} tempMain={value.tempMain}/>)

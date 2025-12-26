@@ -50,8 +50,8 @@ export default function WeekTile(props: IWeekTile)
             <div className="weather-card-tile">
             {
                 isMobile?
-                <>
-                </>
+                weatherCards.map((value, index) => 
+                    (index < 3 || index <= (props.width - 200)/ 95) && <WeatherCard key={value.key} title={value.title} weather={value.weather} weatherString={value.weatherString} tempMain={value.tempMain} tempSub={value.tempSub}/>)
                 :
                 weatherCards.map((value, index) => 
                     (index < 3 || index <= (props.width - 200)/ 95) && <WeatherCard key={value.key} title={value.title} weather={value.weather} weatherString={value.weatherString} tempMain={value.tempMain} tempSub={value.tempSub}/>)
