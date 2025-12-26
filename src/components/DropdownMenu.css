@@ -1,0 +1,17 @@
+.dropdown-menu
+{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    background-color: #404040;
+    border: 2px solid rgba(200, 200, 200, 0.3);
+}
+
+.dropdown-menu-option
+{
+    font-size: 30px;
+    padding: 0.5em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    border: 1px solid rgba(100, 100, 100, 0.3);
+}

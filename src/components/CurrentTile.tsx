@@ -2,6 +2,7 @@ import "./CurrentTile.css";
 import { useEffect, useState } from "react";
 import WeatherIcon, { WeatherType } from "./WeatherIcon";
 import { DAYS, MONTHS } from "../Define";
+import DropdownMenu, {IDropDownOptions} from "./DropdownMenu";
 
 export interface ICurrentWeatherCard
 {
@@ -45,6 +46,9 @@ export default function CurrentTile(props: ICurrentTile)
     const [timeSecond, setTimeSecond] = useState("00");
     const [date, setDate] = useState("Sunday");
     const isMobile = props.width <= 800;
+
+    // Menu control
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     function SetTimeTile()
     {
@@ -110,6 +114,17 @@ export default function CurrentTile(props: ICurrentTile)
 		return input.toString();
 	}
 
+    const options: IDropDownOptions[] = [
+        {
+            name: "123",
+            link: "s"
+        },
+        {
+            name: "456",
+            link: "a"
+        }
+    ]
+
     return (
         <>
         {
@@ -121,7 +136,8 @@ export default function CurrentTile(props: ICurrentTile)
             <div className="current-tile-content">
                 <div className="left-block">
                      <div className="flex-block">
-                        <img width="18px" src={import.meta.env.BASE_URL + "/location.svg"}/>
+                        <img className="location-icon"  width="18px" src={import.meta.env.BASE_URL + "/location.svg"} onClick={() => {setIsMenuOpen(true)}}/>
+                        {isMenuOpen && <DropdownMenu options={options} onblur={() => {setIsMenuOpen(false);}}/>}
                         <h2 className="location-text">{weatherCard.location}</h2>
                         <h2 className="location-text-sub">{weatherCard.locationSub}</h2>                              
                     </div>           
@@ -147,7 +163,8 @@ export default function CurrentTile(props: ICurrentTile)
             <div className="current-tile-content">
                 <div className="left-block">
                     <div className="flex-block">
-                        <img width="18px" src={import.meta.env.BASE_URL + "/location.svg"}/>
+                        <img className="location-icon" width="18px" src={import.meta.env.BASE_URL + "/location.svg"} onClick={() => {setIsMenuOpen(true);}}/>
+                        { isMenuOpen && <DropdownMenu options={options} onblur={() => {setIsMenuOpen(false);}}/>}
                         <h2 className="location-text">{weatherCard.location}</h2>
                         <h2 className="location-text-sub">{weatherCard.locationSub}</h2>
                     </div>
