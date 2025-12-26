@@ -120,13 +120,7 @@ export default function CurrentTile(props: ICurrentTile)
             <div className="current-tile">
             <div className="current-tile-content">
                 <div className="left-block">
-                    <div className="flex-block">
-                        <WeatherIcon weather={weatherCard.weather} isNight={weatherCard.isNight} width={(props.width / 4).toString() + "px"} title={weatherCard.weatherString}/> 
-                    </div>
-
-                </div>
-                <div className="right-block">
-                    <div className="flex-block">
+                     <div className="flex-block">
                         <img width="18px" src={import.meta.env.BASE_URL + "/location.svg"}/>
                         <h2 className="location-text">{weatherCard.location}</h2>
                         <h2 className="location-text-sub">{weatherCard.locationSub}</h2>                              
@@ -137,6 +131,9 @@ export default function CurrentTile(props: ICurrentTile)
                     <div className="flex-block">
                         <h4 className="weather-detail">Humidity: {CheckNotAvailable(weatherCard.humidity)}%</h4>
                     </div>
+                </div>
+                <div className="right-block">
+                    <WeatherIcon weather={weatherCard.weather} isNight={weatherCard.isNight} width={(props.width / 4).toString() + "px"} title={weatherCard.weatherString}/> 
                 </div>
             </div>
             <div className="current-tile-matte"></div>
