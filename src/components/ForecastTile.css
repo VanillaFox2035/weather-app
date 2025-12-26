@@ -19,6 +19,20 @@
     z-index: 2;
 }
 
+.weather-list-tile
+{
+    width: 100%;
+    margin: 0em;
+    padding: 0em;
+    border-radius: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.weather-list-divider
+{
+    border-color: rgba(127, 127, 127, 0.15);
+}
 
 .matte-tile
 {

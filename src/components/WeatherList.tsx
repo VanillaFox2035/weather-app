@@ -51,20 +51,23 @@ export default function WeatherList(props: IWeatherList)
 
     return (
     <div className="weather-list">
-        <h4 className="forecast-title">{title}</h4>
-        <div className="spacing"></div>
-        <WeatherIcon weather={weather} isNight={isNight} title={props.weatherString}/>
-        <div className="spacing"></div>
-        {
-            props.tempSub? 
-            <div className="flex-block">
-                <h3 className="forecast-temperature-high">{tempMain}°</h3>
-                <h3 className="forecast-temperature-divider">/</h3>
-                <h3 className="forecast-temperature-low">{tempSub}°</h3>
-            </div>
-            :
-            <h3 className="forecast-temperature">{tempMain}°</h3>
-        }
+        <div className="forecast-list-left">
+            <h4 className="forecast-list-title">{title}</h4>
+        </div>
+        <div className="forecast-list-right">
+            <WeatherIcon weather={weather} isNight={isNight} title={props.weatherString} width={"40px"}/>
+            <div className="spacing-list"></div>
+            {
+                props.tempSub? 
+                <div className="flex-block">
+                    <h3 className="forecast-list-temperature-high">{tempMain}°</h3>
+                    <h3 className="forecast-list-temperature-divider">/</h3>
+                    <h3 className="forecast-list-temperature-low">{tempSub}°</h3>
+                </div>
+                :
+                <h3 className="forecast-list-temperature">{tempMain}°</h3>
+            }
+        </div>
     </div>
     );
 }

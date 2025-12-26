@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./ForecastTile.css";
 import WeatherCard from "./WeatherCard";
+import WeatherList from "./WeatherList";
 import { WeatherType } from "./WeatherIcon";
 
 export interface IDayWeatherCard
@@ -48,11 +49,15 @@ export default function DayTile(props: IDayTile)
 
     return (
         <div className="forecast-tile" key={key}>
-            <div className="weather-card-tile">
+            <div className={isMobile ? "weather-list-tile" : "weather-card-tile"}>
             {
                 isMobile?
-                weatherCards.map((value, index) => 
-                    (index < 3 || index <= (props.width - 200)/ 95) && <WeatherCard key={value.key} title={value.title} weather={value.weather} weatherString={value.weatherString} isNight={value.isNight} tempMain={value.tempMain}/>)
+                weatherCards.map((value, index, array) => 
+                    <>
+                        <WeatherList key={value.key} title={value.title} weather={value.weather} weatherString={value.weatherString} isNight={value.isNight} tempMain={value.tempMain}/>
+                        {(index < array.length - 1) && <hr className="weather-list-divider"/>}
+                    </>
+                    )
                 :
                 weatherCards.map((value, index) => 
                     (index < 3 || index <= (props.width - 200)/ 95) && <WeatherCard key={value.key} title={value.title} weather={value.weather} weatherString={value.weatherString} isNight={value.isNight} tempMain={value.tempMain}/>)
