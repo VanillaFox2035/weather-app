@@ -67,7 +67,7 @@ function App() {
   	return (
     <>
       <div className="container" key={key}>
-			<CurrentTile weatherCard={host.weatherCardCurrent} width={width}/>
+			<CurrentTile weatherCard={host.weatherCardCurrent} width={width} locationList={host.locationList}/>
 			<DayTile weatherCards={host.weatherCardDay} width={width}/>
 			<WeekTile weatherCards={host.weatherCardWeek} width={width}/>
 			<br/>

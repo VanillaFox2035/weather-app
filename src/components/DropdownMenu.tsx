@@ -34,7 +34,7 @@ export default function DropdownMenu(props: IDropdownMenu)
         <div ref={ref} className="dropdown-menu" onBlur={() => {console.log("blur"); props.onblur();}}>
             {
                 options.map((value) =>
-                    <a className="dropdown-menu-option" href={value.link}>{value.name}</a> 
+                    <a className="dropdown-menu-option" key={"option" + value.name} href={value.link}>{value.name}</a> 
                 )
             }
         </div>

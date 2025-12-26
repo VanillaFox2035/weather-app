@@ -163,7 +163,7 @@ export default class Host
 				break;
 			}
 		}
-		
+
 		// Render fields
 		const maxCardCount = 6;
 		const cardCount = Math.min(Math.floor((weatherArray.length - skip) / 2), maxCardCount);
