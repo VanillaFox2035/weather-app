@@ -62,16 +62,20 @@
 
 .location-text
 {
+    cursor: pointer;
     margin-left: 0.1em;
     text-shadow: 0px 0px 4px rgba(169, 169, 169, 0.3);
+    z-index: 2;
 }
 
 .location-text-sub
 {
+    cursor: pointer;
     margin-left: 1em;
     font-weight: normal;
     color: darkgray;
     text-shadow: 0px 0px 4px rgba(169, 169, 169, 0.3);
+    z-index: 2;
 }
 
 .current-date
@@ -88,6 +92,7 @@
     font-weight: normal;
     font-size: 100px;
     text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.3);
+    z-index: 1;
 }
 
 .current-time-second
@@ -119,6 +124,7 @@
 .location-icon
 {
     cursor: pointer;
+    z-index: 2;
 }
 
 h1

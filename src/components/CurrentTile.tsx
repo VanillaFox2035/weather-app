@@ -137,11 +137,11 @@ export default function CurrentTile(props: ICurrentTile)
                 <div className="left-block">
                      <div className="flex-block">
                         <img className="location-icon"  width="18px" src={import.meta.env.BASE_URL + "/location.svg"} onClick={() => {setIsMenuOpen(true)}}/>
-                        {isMenuOpen && <DropdownMenu options={options} onblur={() => {setIsMenuOpen(false);}}/>}
-                        <h2 className="location-text">{weatherCard.location}</h2>
-                        <h2 className="location-text-sub">{weatherCard.locationSub}</h2>                              
+                        <h2 className="location-text" onClick={() => {setIsMenuOpen(true)}}>{weatherCard.location}</h2>
+                        <h2 className="location-text-sub" onClick={() => {setIsMenuOpen(true)}}>{weatherCard.locationSub}</h2>                              
                     </div>           
                     <div className="flex-block">
+                        {isMenuOpen && <DropdownMenu options={options} onblur={() => {setIsMenuOpen(false);}}/>}
                         <h1 className="current-temperature">{CheckNotAvailable(weatherCard.temperature)}°</h1>
                     </div>
                     <div className="flex-block">
@@ -164,12 +164,12 @@ export default function CurrentTile(props: ICurrentTile)
                 <div className="left-block">
                     <div className="flex-block">
                         <img className="location-icon" width="18px" src={import.meta.env.BASE_URL + "/location.svg"} onClick={() => {setIsMenuOpen(true);}}/>
-                        { isMenuOpen && <DropdownMenu options={options} onblur={() => {setIsMenuOpen(false);}}/>}
-                        <h2 className="location-text">{weatherCard.location}</h2>
-                        <h2 className="location-text-sub">{weatherCard.locationSub}</h2>
+                        <h2 className="location-text" onClick={() => {setIsMenuOpen(true)}}>{weatherCard.location}</h2>
+                        <h2 className="location-text-sub" onClick={() => {setIsMenuOpen(true)}}>{weatherCard.locationSub}</h2>
                     </div>
 
                     <div className="flex-block">
+                        { isMenuOpen && <DropdownMenu options={options} onblur={() => {setIsMenuOpen(false);}}/>}
                         <h1 className="current-time">{time}</h1>
                         <h2 className="current-time-second">{timeSecond}</h2>
                     </div>

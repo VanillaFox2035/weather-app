@@ -5,6 +5,7 @@
     position: fixed;
     background-color: #404040;
     border: 2px solid rgba(200, 200, 200, 0.3);
+    z-index: 5;
 }
 
 .dropdown-menu-option
