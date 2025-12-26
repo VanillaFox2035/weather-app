@@ -133,7 +133,7 @@ export default function CurrentTile(props: ICurrentTile)
                     </div>
                 </div>
                 <div className="right-block">
-                    <WeatherIcon weather={weatherCard.weather} isNight={weatherCard.isNight} width={(props.width / 4).toString() + "px"} title={weatherCard.weatherString}/> 
+                    <WeatherIcon weather={weatherCard.weather} isNight={weatherCard.isNight} width={"150px"} title={weatherCard.weatherString}/> 
                 </div>
             </div>
             <div className="current-tile-matte"></div>

@@ -33,6 +33,7 @@ export default function WeekTile(props: IWeekTile)
 {
     const [weatherCards, setWeatherCards] = useState([defaultCard]);
     const [key, setKey] = useState(defaultCard.key);
+    const isMobile = props.width <= 800;
     useEffect(() => {
         const interval = setInterval(() => {
             setWeatherCards(props.weatherCards);
@@ -45,18 +46,18 @@ export default function WeekTile(props: IWeekTile)
     }, [props])
 
     return (
-        <>
-        
         <div className="forecast-tile" key={key}>
             <div className="weather-card-tile">
             {
+                isMobile?
+                <>
+                </>
+                :
                 weatherCards.map((value, index) => 
                     (index < 3 || index <= (props.width - 200)/ 95) && <WeatherCard key={value.key} title={value.title} weather={value.weather} weatherString={value.weatherString} tempMain={value.tempMain} tempSub={value.tempSub}/>)
             }
             </div>
             <div className="matte-tile"></div>
         </div>
-        </>
-        
     );
 }
