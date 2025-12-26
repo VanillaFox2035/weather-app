@@ -55,7 +55,7 @@ export default function WeatherList(props: IWeatherList)
             <h4 className="forecast-list-title">{title}</h4>
         </div>
         <div className="forecast-list-right">
-            <WeatherIcon weather={weather} isNight={isNight} title={props.weatherString} width={"40px"}/>
+            <WeatherIcon weather={weather} isNight={isNight} title={props.weatherString} width={"25px"}/>
             <div className="spacing-list"></div>
             {
                 props.tempSub? 
