@@ -49,7 +49,7 @@ interface IWeatherIcon
 export default function WeatherIcon(props: IWeatherIcon)
 {
     // Update render on props value changed
-    const [weather, setWeather] = useState(WeatherType.Clear);
+    const [weather, setWeather] = useState(WeatherType.Unknown);
     useEffect(() => {
         setWeather(props.weather);
     }, [props]);

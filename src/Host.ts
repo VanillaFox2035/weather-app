@@ -10,9 +10,9 @@ export default class Host
 {
     // Public accessed data
 	private isInitialized = false;
-    public weatherCardCurrent: ICurrentWeatherCard = {...defaultCardCurrent}; // Deep copy
-    public weatherCardDay: IDayWeatherCard[] = [{...defaultCardDay}]; 
-    public weatherCardWeek: IWeekWeatherCard[] = [{...defaultCardWeek}]; 
+    public weatherCardCurrent: ICurrentWeatherCard = JSON.parse(JSON.stringify(defaultCardCurrent)); // Deep copy
+    public weatherCardDay: IDayWeatherCard[] = JSON.parse(JSON.stringify(defaultCardDay)); 
+    public weatherCardWeek: IWeekWeatherCard[] = JSON.parse(JSON.stringify(defaultCardWeek));
 	public currentLocation: string = "名間";
 	public locationList: any = {};
 
@@ -113,14 +113,7 @@ export default class Host
 		// Render fields
 		const maxCardCount = 6;
 		const cardCount = Math.min(weatherArray.length - skip, maxCardCount);
-		if (host.weatherCardDay.length !== cardCount)
-		{
-			host.weatherCardDay = [{...defaultCardDay}];
-			while (host.weatherCardDay.length < cardCount)
-			{
-				host.weatherCardDay.push({...defaultCardDay}); // Deep copy
-			}
-		}
+		host.weatherCardDay = JSON.parse(JSON.stringify(defaultCardDay));
 		for (let i = 0; i < cardCount; i++)
 		{
 			host.weatherCardDay[i].key = "day-tile-" + i.toString() + " " + Date().toString();
@@ -167,14 +160,7 @@ export default class Host
 		// Render fields
 		const maxCardCount = 6;
 		const cardCount = Math.min(Math.floor((weatherArray.length - skip) / 2), maxCardCount);
-		if (host.weatherCardWeek.length !== cardCount)
-		{
-			host.weatherCardWeek = [{...defaultCardWeek}];
-			while (host.weatherCardWeek.length < cardCount)
-			{
-				host.weatherCardWeek.push({...defaultCardWeek}); // Deep copy
-			}
-		}
+		host.weatherCardWeek = JSON.parse(JSON.stringify(defaultCardWeek));
 		for (let i = 0; i < cardCount; i++)
 		{
 			host.weatherCardWeek[i].key = "week-tile-" + i.toString() + " " + Date().toString();
