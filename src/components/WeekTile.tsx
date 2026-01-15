@@ -14,15 +14,18 @@ export interface IWeekWeatherCard
     weatherString: string;
 }
 
-export const defaultCard: IWeekWeatherCard = 
-{
-    key: "week-tile-0 ",
-    title: "Sun",
-	tempMain: 0,
-	tempSub: 0,
-	weather: WeatherType.Clear,
-    weatherString: "晴",
-}
+export const defaultCards: IWeekWeatherCard[] = 
+    Array.from({length: 6}, (_, index) => index)
+        .map(index => {
+            return {
+                key: "week-tile-" + index.toString(),
+                title: "-",
+	            tempMain: -99,
+	            tempSub: -99,
+	            weather: WeatherType.Unknown,
+                weatherString: "?",
+        };
+});
 
 interface IWeekTile
 {
@@ -32,8 +35,8 @@ interface IWeekTile
 
 export default function WeekTile(props: IWeekTile)
 {
-    const [weatherCards, setWeatherCards] = useState([defaultCard]);
-    const [key, setKey] = useState(defaultCard.key);
+    const [weatherCards, setWeatherCards] = useState(defaultCards);
+    const [key, setKey] = useState(defaultCards[0].key);
     const isMobile = props.width <= 800;
     useEffect(() => {
         const interval = setInterval(() => {

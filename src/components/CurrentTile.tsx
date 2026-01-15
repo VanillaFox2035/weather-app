@@ -19,15 +19,15 @@ export interface ICurrentWeatherCard
 
 export const defaultCard: ICurrentWeatherCard = 
 {
-    lastUpdated: "00:00",
-    location: "名間",
-    locationSub: "Mingjian",
-    weather: WeatherType.Clear,
-    weatherString: "晴",
+    lastUpdated: "-",
+    location: "-",
+    locationSub: "-",
+    weather: WeatherType.Unknown,
+    weatherString: "-",
     isNight: false,
-    temperature: 0,
-    precipitation: 0,
-    humidity: 0
+    temperature: -99,
+    precipitation: -99,
+    humidity: -99
 }
 
 interface ICurrentTile

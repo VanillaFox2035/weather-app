@@ -1,7 +1,7 @@
 //import fetch from "node-fetch";
 import { ICurrentWeatherCard, defaultCard as defaultCardCurrent } from "./components/CurrentTile";
-import { IDayWeatherCard, defaultCard as defaultCardDay } from "./components/DayTile";
-import { IWeekWeatherCard, defaultCard as defaultCardWeek } from "./components/WeekTile";
+import { IDayWeatherCard, defaultCards as defaultCardDay } from "./components/DayTile";
+import { IWeekWeatherCard, defaultCards as defaultCardWeek } from "./components/WeekTile";
 import { WeatherType } from "./components/WeatherIcon";
 import { host } from "./App";
 import { DAYS } from "./Define";

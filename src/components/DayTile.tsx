@@ -14,15 +14,18 @@ export interface IDayWeatherCard
     isNight: boolean;
 }
 
-export const defaultCard: IDayWeatherCard = 
-{
-    key: "day-tile-0 ",
-    title: "06:00",
-	tempMain: 0,
-	weather: WeatherType.Clear,
-    weatherString: "晴",
-	isNight: false
-}
+export const defaultCards: IDayWeatherCard[] = 
+Array.from({length: 6}, (_, index) => index)
+    .map(index => {
+        return {
+            key: "day-tile-" + index.toString(),
+            title: "-",
+	        tempMain: -99,
+	        weather: WeatherType.Unknown,
+            weatherString: "?",
+	        isNight: false
+        };
+});
 
 interface IDayTile
 {
@@ -32,8 +35,8 @@ interface IDayTile
 
 export default function DayTile(props: IDayTile)
 {
-    const [weatherCards, setWeatherCards] = useState([defaultCard]);
-    const [key, setKey] = useState(defaultCard.key);
+    const [weatherCards, setWeatherCards] = useState(defaultCards);
+    const [key, setKey] = useState(defaultCards[0].key);
     const isMobile = props.width <= 800;
     useEffect(() => {
         // Update every 0.1 seconds
