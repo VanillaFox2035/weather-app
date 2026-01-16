@@ -12,9 +12,9 @@ export interface ICurrentWeatherCard
     weather: WeatherType;
     weatherString: string;
     isNight: boolean;
-    temperature: number;
-    precipitation: number;
-    humidity: number;
+    temperature: string;
+    precipitation: string;
+    humidity: string;
 }
 
 export const defaultCard: ICurrentWeatherCard = 
@@ -25,9 +25,9 @@ export const defaultCard: ICurrentWeatherCard =
     weather: WeatherType.Unknown,
     weatherString: "-",
     isNight: false,
-    temperature: -99,
-    precipitation: -99,
-    humidity: -99
+    temperature: "-",
+    precipitation: "-",
+    humidity: "-"
 }
 
 interface ICurrentTile
@@ -43,9 +43,9 @@ export default function CurrentTile(props: ICurrentTile)
     const [weatherCard, setWeatherCard] = useState(defaultCard);
 
     // Time update
-    const [time, setTime] = useState("00:00");
-    const [timeSecond, setTimeSecond] = useState("00");
-    const [date, setDate] = useState("Sunday");
+    const [time, setTime] = useState("--:--");
+    const [timeSecond, setTimeSecond] = useState("--");
+    const [date, setDate] = useState("-");
     const isMobile = props.width <= 800;
     const locationList = props.locationList;
 
@@ -107,11 +107,11 @@ export default function CurrentTile(props: ICurrentTile)
         return result;
     }
 
-    function CheckNotAvailable(input :number): string
+    function CheckNotAvailable(input :string): string
 	{
-		if (input.toString() === "-99")
+		if (input === "-99")
 		{
-			return "?";
+			return "-";
 		}
 		return input.toString();
 	}
