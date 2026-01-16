@@ -10,8 +10,8 @@ export interface IWeatherList
     isNight?: boolean;
     weather: WeatherType;
     weatherString?: string;
-    tempMain: number;
-    tempSub?: number;
+    tempMain: string;
+    tempSub?: string;
 }
 
 export default function WeatherList(props: IWeatherList)

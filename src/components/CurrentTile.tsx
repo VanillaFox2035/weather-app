@@ -71,7 +71,7 @@ export default function CurrentTile(props: ICurrentTile)
         return () => {
             clearInterval(interval);
         }
-    }, [props]);
+    }, []);
 
     function GetFormattedTime(): string
     {

@@ -8,8 +8,8 @@ export interface IWeekWeatherCard
 {
     key: string;
     title: string;
-    tempMain: number;
-    tempSub: number;
+    tempMain: string;
+    tempSub: string;
     weather: WeatherType;
     weatherString: string;
 }
@@ -20,8 +20,8 @@ export const defaultCards: IWeekWeatherCard[] =
             return {
                 key: "week-tile-" + index.toString(),
                 title: "-",
-	            tempMain: -99,
-	            tempSub: -99,
+	            tempMain: "-",
+	            tempSub: "-",
 	            weather: WeatherType.Unknown,
                 weatherString: "?",
         };
@@ -47,7 +47,7 @@ export default function WeekTile(props: IWeekTile)
         {
             clearInterval(interval);
         }
-    }, [props])
+    }, [])
 
     return (
         <div className="forecast-tile" key={key}>

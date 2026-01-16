@@ -18,7 +18,6 @@ export default class Host
 
     constructor()
     {
-		
     }
 
 
@@ -113,7 +112,7 @@ export default class Host
 		// Render fields
 		const maxCardCount = 6;
 		const cardCount = Math.min(weatherArray.length - skip, maxCardCount);
-		host.weatherCardDay = JSON.parse(JSON.stringify(defaultCardDay));
+		//host.weatherCardDay = JSON.parse(JSON.stringify(defaultCardDay));
 		for (let i = 0; i < cardCount; i++)
 		{
 			host.weatherCardDay[i].key = "day-tile-" + i.toString() + " " + Date().toString();
@@ -160,7 +159,7 @@ export default class Host
 		// Render fields
 		const maxCardCount = 6;
 		const cardCount = Math.min(Math.floor((weatherArray.length - skip) / 2), maxCardCount);
-		host.weatherCardWeek = JSON.parse(JSON.stringify(defaultCardWeek));
+		//host.weatherCardWeek = JSON.parse(JSON.stringify(defaultCardWeek));
 		for (let i = 0; i < cardCount; i++)
 		{
 			host.weatherCardWeek[i].key = "week-tile-" + i.toString() + " " + Date().toString();
@@ -183,8 +182,8 @@ export default class Host
 				const tempMinNight = tempMinArray[weatherIndex + 1].ElementValue[0].MinTemperature;
 				host.weatherCardWeek[i].weather = host.TranslateWeather(weatherDay);
 				host.weatherCardWeek[i].weatherString = weatherDay;
-				host.weatherCardWeek[i].tempMain = Math.max(tempMaxDay, tempMaxNight);
-				host.weatherCardWeek[i].tempSub = Math.min(tempMinDay, tempMinNight);
+				host.weatherCardWeek[i].tempMain = Math.max(tempMaxDay, tempMaxNight).toString();
+				host.weatherCardWeek[i].tempSub = Math.min(tempMinDay, tempMinNight).toString();
 			}
 			else
 			{

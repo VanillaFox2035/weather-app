@@ -8,7 +8,7 @@ export interface IDayWeatherCard
 {
     key: string;
     title: string;
-    tempMain: number;
+    tempMain: string;
     weather: WeatherType;
     weatherString: string;
     isNight: boolean;
@@ -20,7 +20,7 @@ Array.from({length: 6}, (_, index) => index)
         return {
             key: "day-tile-" + index.toString(),
             title: "-",
-	        tempMain: -99,
+	        tempMain: "-",
 	        weather: WeatherType.Unknown,
             weatherString: "?",
 	        isNight: false
@@ -48,7 +48,7 @@ export default function DayTile(props: IDayTile)
         {
             clearInterval(interval);
         }
-    }, [props])
+    }, [])
 
     return (
         <div className="forecast-tile" key={key}>
