@@ -1,80 +1,68 @@
-import { useState, useEffect } from 'react'
-import './App.css';
-import CurrentTile from "./components/CurrentTile";
-import DayTile from "./components/DayTile";
-import WeekTile from "./components/WeekTile";
-import Host from "./Host";
+import { useEffect, useState } from "react";
+import Clock from "./components/Clock";
+import { assetUrl } from "./lib/assets";
+import Hero from "./components/Hero";
+import Hourly from "./components/Hourly";
+import Week from "./components/Week";
+import LocationSheet from "./components/LocationSheet";
+import { useLocations, useWeather } from "./hooks/useWeather";
+import { DEFAULT_PLACE, summarize, themeFor } from "./lib/weather";
 
-export const host: Host = new Host();
+const readPlace = () => new URLSearchParams(window.location.search).get("location") || DEFAULT_PLACE;
 
-function App() {
-  	const [width, setWidth] = useState<number>(window.innerWidth);
-	function onWindowSizeChange() {
-		setWidth(window.innerWidth);
-	}
+export default function App() {
+  const [place, setPlace] = useState(readPlace);
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const { forecast, failed, refresh } = useWeather(place);
+  const places = useLocations();
 
-	let lastCheckTime: number = Date.now();
-	const [key, setKey] = useState("app");
+  const current = forecast?.current ?? null;
+  const theme = current ? themeFor(current.kind, current.night) : "sun";
 
-	//  Initialize controller once
-	useEffect(() => {
-		window.addEventListener('resize', onWindowSizeChange);
-		host.Initialize();
-		setInterval(CheckTime, 100);
-	}, []);
+  useEffect(() => { document.documentElement.dataset.theme = theme; }, [theme]);
+  useEffect(() => {
+    document.title = current?.temp != null ? `${current.temp}° in ${place}` : "Weather";
+  }, [current?.temp, place]);
 
-	// Request weather data on every multiple of 10 minute + 10 seconds 
-	// (e.g 00:00:10, 00:10:10, 00:20:10... and so on)
-	function CheckTime()
-	{
-		setKey(host.weatherCardDay[0].key + "-app");
-		// Check minutes
-		if (new Date().getMinutes() % 10 == 0)
-		{
-			if (new Date(lastCheckTime).getSeconds() == 9 &&
-				new Date().getSeconds() == 10)
-			{
-				host.RequestWeatherData();
-			}
-			lastCheckTime = Date.now();
-		}
-	}
+  function choose(next: string) {
+    setPlace(next);
+    setSheetOpen(false);
+    const url = new URL(window.location.href);
+    url.searchParams.set("location", next);
+    history.replaceState(null, "", url);
+  }
 
-	// Force update if left the browser tab for more than 1 minute
-	window.onfocus = () => {
-		if (Date.now() - lastCheckTime > 60 * 1000)
-		{
-			host.RequestWeatherData();
-			lastCheckTime = Date.now();
-		}
-		else
-		{
-			console.log("Update time not enough");
-		}
-	}
+  return (
+    <main className="app">
+      <header className="top">
+        <button className="place" onClick={() => setSheetOpen(true)} aria-haspopup="dialog">
+          <img src={assetUrl("location.svg")} width={18} height={18} alt="" />
+          {place}
+        </button>
+        <div className="top-right">
+          <Clock />
+          {current && <span className="updated">Updated {current.updated}</span>}
+        </div>
+      </header>
 
-	window.onblur = () => {
-		
-	}
+      {failed && (
+        <div className="notice" role="alert">
+          <p>{forecast ? `Couldn't refresh. Showing the update from ${current?.updated}.` : `Couldn't load the weather for ${place}.`}</p>
+          <button onClick={refresh}>Try again</button>
+        </div>
+      )}
 
-	useEffect(() => {
-	}, [
-		host.weatherCardCurrent,
-		host.weatherCardDay,
-		host.weatherCardWeek,
-	]);
-	
-  	return (
-    <>
-      <div className="container" key={key}>
-			<CurrentTile weatherCard={host.weatherCardCurrent} width={width} locationList={host.locationList}/>
-			<DayTile weatherCards={host.weatherCardDay} width={width}/>
-			<WeekTile weatherCards={host.weatherCardWeek} width={width}/>
-			<br/>
-			<div className="credit">Designed and coded by VanillaFox2035</div>
-		  </div>
-    </>
-  	);
+      {(forecast || !failed) && (
+        <>
+          <Hero current={current} summary={forecast ? summarize(forecast.current, forecast.hours) : ""} />
+          {forecast && <Hourly hours={forecast.hours} />}
+          {forecast && <Week days={forecast.days} />}
+        </>
+      )}
+
+      <footer className="credit">Designed and coded by VanillaFox2035 & Claude.ai</footer>
+
+      <LocationSheet open={sheetOpen} current={place} places={places} onSelect={choose} onClose={() => setSheetOpen(false)} />
+    </main>
+  );
 }
-
-export default App
